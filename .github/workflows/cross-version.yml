@@ -1,0 +1,44 @@
+name: Cross-Version
+
+on: [push, pull_request]
+
+env:
+  MAVEN_ARGS: -B -V -ntp -e -Djansi.passthrough=true -Dstyle.color=always
+
+jobs:
+
+  java_17:
+
+    name: Java 17
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+          cache: maven
+      - name: Test
+        run: ./mvnw $MAVEN_ARGS verify
+
+  java:
+
+    name: Java ${{ matrix.java }}
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [22, 23, 24]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: oracle-actions/setup-java@v1
+        with:
+          website: jdk.java.net
+          release: ${{ matrix.java }}
+          version: latest
+      - name: Test
+        run: ./mvnw $MAVEN_ARGS verify

@@ -1,0 +1,40 @@
+name: CI
+
+on: [push, pull_request]
+
+env:
+  MAVEN_ARGS: -B -V -ntp -e -Djansi.passthrough=true -Dstyle.color=always
+
+jobs:
+
+  java_21:
+
+    name: Java 21
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+          cache: maven
+      - name: Test
+        run: ./mvnw $MAVEN_ARGS verify
+
+  javadoc:
+
+    name: Javadoc
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+          cache: maven
+      - name: Generate Javadoc
+        run: ./mvnw $MAVEN_ARGS javadoc:javadoc
