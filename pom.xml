@@ -7,7 +7,7 @@
   <version>0.1.0-SNAPSHOT</version>
 
   <name>Jimfs JUnit Jupiter</name>
-  <description>A JUnit Jupiter `@TempDir` extension based on Jimfs</description>
+  <description>A JUnit Jupiter `@TempDir` extension based on the in-memory file system Jimfs</description>
   <url>https://github.com/scordio/jimfs-junit-jupiter</url>
   <inceptionYear>2024</inceptionYear>
   <licenses>
@@ -64,6 +64,12 @@
       <scope>provided</scope>
     </dependency>
     <!-- Test -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>3.26.3</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
