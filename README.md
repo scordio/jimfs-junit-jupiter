@@ -122,7 +122,7 @@ specifies a different type.
 Compared to the configuration options that Jimfs provides, Jimfs JUnit Jupiter exposes a much smaller surface to keep
 its usage simple.
 
-In case you are missing something for your use case, please [raise an issue](../../issues/new)!
+In case something is missing for your use case, please [raise an issue](../../issues/new)!
 
 ## License
 
