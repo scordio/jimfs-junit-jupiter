@@ -23,18 +23,56 @@ import java.lang.annotation.Target;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.io.TempDir;
 
+/**
+ * {@link TempDir} composed annotation that sets the {@link TempDir#factory() factory}
+ * attribute to {@link JimfsTempDirFactory}.
+ *
+ * <p>The annotation can be used as a drop-in replacement for {@code @TempDir}.
+ */
 @Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @TempDir(factory = JimfsTempDirFactory.class)
 public @interface JimfsTempDir {
 
+  /**
+   * Configuration for the in-memory file system.
+   *
+   * <p>Defaults to {@link Configuration#FOR_CURRENT_PLATFORM}.
+   *
+   * @return the configuration to use for the in-memory file system
+   */
   Configuration value() default Configuration.FOR_CURRENT_PLATFORM;
 
+  /**
+   * Enumeration of configurations for the in-memory file system.
+   *
+   * @see com.google.common.jimfs.Configuration
+   */
   enum Configuration {
+    /**
+     * Configuration appropriate to the current operating system.
+     *
+     * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
+     */
     FOR_CURRENT_PLATFORM(com.google.common.jimfs.Configuration::forCurrentPlatform),
+    /**
+     * Configuration for a Mac OS X-like file system.
+     *
+     * @see com.google.common.jimfs.Configuration#osX()
+     */
     OS_X(com.google.common.jimfs.Configuration::osX),
+    /**
+     * Configuration for a Unix-like file system.
+     *
+     * @see com.google.common.jimfs.Configuration#unix()
+     */
     UNIX(com.google.common.jimfs.Configuration::unix),
+    /**
+     * Configuration for a Windows-like file system.
+     *
+     * @see com.google.common.jimfs.Configuration#windows()
+     */
     WINDOWS(com.google.common.jimfs.Configuration::windows);
 
     private final Supplier<com.google.common.jimfs.Configuration> configuration;

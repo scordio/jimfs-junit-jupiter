@@ -10,13 +10,13 @@ directories based on the in-memory file system [Jimfs][].
 ## Motivation
 
 Starting from [version 5.10](https://junit.org/junit5/docs/5.10.0/release-notes/index.html#release-notes),
-JUnit 5 offers a
+JUnit Jupiter offers a
 [`TempDirFactory` SPI](https://junit.org/junit5/docs/5.10.0/user-guide/#writing-tests-built-in-extensions-TempDirectory)
 for customizing how temporary directories are created via the `@TempDir` annotation.
 The SPI allows libraries like Jimfs to provide their own implementation.
 
 According to [google/jimfs#258](https://github.com/google/jimfs/issues/258),
-Google is currently not a JUnit 5 user and first-party support might be provided only once Google moves to JUnit 5.
+Google is currently not a JUnit Jupiter user and first-party support might be provided only once Google moves to it.
 
 For this reason, I decided to implement this extension to aid all the users that would like a smooth integration between
 Jimfs and JUnit Jupiter.
@@ -58,11 +58,13 @@ void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
 }
 ```
 
-`tempDir` is resolved into a Jimfs based temporary directory appropriate to the current operating system.
+`tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriate to the current operating system.
 
 ### @JimfsTempDir
 
-To cut verbosity, `@JimfsTempDir` can be used as a meta-annotation of `@TempDir`:
+To cut verbosity, `@JimfsTempDir` can be used as a
+[composed annotation](https://junit.org/junit5/docs/current/user-guide/#writing-tests-meta-annotations)
+of `@TempDir`:
 
 ```java
 @Test
@@ -72,12 +74,12 @@ void test(@JimfsTempDir Path tempDir) {
 ```
 
 The behavior is equivalent to using `JimfsTempDirFactory` directly:
-`tempDir` is resolved into a Jimfs based temporary directory appropriate to the current operating system.
+`tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriate to the current operating system.
 
-Similarly to `@TempDir`, `@JimfsTempDir` can be used to annotate a field in a test class or a parameter in a
+Similar to `@TempDir`, `@JimfsTempDir` can be used to annotate a field in a test class or a parameter in a
 lifecycle method or test method of type `Path` or `File` that should be resolved into a temporary directory.
 
-For better control of the underlying Jimfs file system,
+For better control over the underlying in-memory file system,
 `@JimfsTempDir` offers an optional `value` attribute that can be set to the desired configuration, one of:
 * `FOR_CURRENT_PLATFORM`: appropriate to the current operating system (default)
 * `OS_X`: for a Mac OS X-like file system
@@ -95,9 +97,9 @@ void test(@JimfsTempDir(WINDOWS) Path tempDir) {
 
 ### Default Configuration
 
-You can use the `junit.jupiter.tempdir.factory.default`
+The `junit.jupiter.tempdir.factory.default`
 [configuration parameter](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params)
-to specify the fully qualified class name of `JimfsTempDirFactory`:
+can be used to specify the fully qualified class name of `JimfsTempDirFactory`:
 
 ```
 junit.jupiter.tempdir.factory.default=io.github.scordio.jimfs.junit.jupiter.JimfsTempDirFactory
