@@ -3,7 +3,7 @@
 [![CI](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml?query=branch%3Amain)
 [![Cross-Version](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml?query=branch%3Amain)
 
-This project provides a [JUnit Jupiter][] extension module that adds support for
+This project provides a [JUnit Jupiter][] extension that adds support for
 [`@TempDir`](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html)
 directories based on the in-memory file system [Jimfs][].
 
@@ -92,8 +92,8 @@ void test(@JimfsTempDir(WINDOWS) Path tempDir) {
 
 ## Improvements
 
-Compared to the native configuration options that Jimfs provides,
-Jimfs JUnit Jupiter exposes a much smaller surface to keep its usage simple.
+Compared to the configuration options that Jimfs provides, Jimfs JUnit Jupiter exposes a much smaller surface to keep
+its usage simple.
 
 In case you are missing something for your use case, please [raise an issue](../../issues/new)!
 
