@@ -3,16 +3,23 @@
 [![CI](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml?query=branch%3Amain)
 [![Cross-Version](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml?query=branch%3Amain)
 
-This project provides a [JUnit Jupiter][] extension module that adds support for `@TempDir` directories based on the in-memory file system [Jimfs][].
+This project provides a [JUnit Jupiter][] extension module that adds support for
+[`@TempDir`](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html)
+directories based on the in-memory file system [Jimfs][].
 
 ## Motivation
 
-Starting from [version 5.10](https://junit.org/junit5/docs/5.10.0/release-notes/index.html#release-notes), JUnit 5 offers a [`TempDirFactory` SPI](https://junit.org/junit5/docs/5.10.0/user-guide/#writing-tests-built-in-extensions-TempDirectory) for customizing how temporary directories are created via the `@TempDir` annotation.
+Starting from [version 5.10](https://junit.org/junit5/docs/5.10.0/release-notes/index.html#release-notes),
+JUnit 5 offers a
+[`TempDirFactory` SPI](https://junit.org/junit5/docs/5.10.0/user-guide/#writing-tests-built-in-extensions-TempDirectory)
+for customizing how temporary directories are created via the `@TempDir` annotation.
 The SPI allows libraries like Jimfs to provide their own implementation.
 
-According to [google/jimfs#258](https://github.com/google/jimfs/issues/258), Google is currently not a JUnit 5 user and first-party support might be provided only once Google moves to JUnit 5.
+According to [google/jimfs#258](https://github.com/google/jimfs/issues/258),
+Google is currently not a JUnit 5 user and first-party support might be provided only once Google moves to JUnit 5.
 
-For this reason, I decided to implement this extension to aid all the users that would like a smooth integration between Jimfs and JUnit Jupiter.
+For this reason, I decided to implement this extension to aid all the users that would like a smooth integration between
+Jimfs and JUnit Jupiter.
 If Google ever offers first-party support for this integration, this project will likely be discontinued.
 
 ## Compatibility
@@ -38,7 +45,57 @@ Compatibility is guaranteed only with the JUnit Jupiter versions from 5.10 to th
 implementation("io.github.scordio:jimfs-junit-jupiter:${jimfsJunitJupiterVersion}")
 ```
 
-### How To
+### JimfsTempDirFactory
+
+The simplest possible usage is to set the
+[`factory`](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html#factory())
+attribute of `@TempDir` to `JimfsTempDirFactory`:
+
+```java
+@Test
+void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
+  assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
+}
+```
+
+`tempDir` is resolved into a Jimfs based temporary directory appropriate to the current operating system.
+
+### @JimfsTempDir
+
+To cut verbosity, `@JimfsTempDir` can be used as a meta-annotation of `@TempDir`:
+
+```java
+@Test
+void test(@JimfsTempDir Path tempDir) {
+  assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
+}
+```
+
+The behavior is equivalent to using `JimfsTempDirFactory` directly:
+`tempDir` is resolved into a Jimfs based temporary directory appropriate to the current operating system.
+
+For better control of the underlying Jimfs file system,
+`@JimfsTempDir` offers an optional `value` attribute that can be set to the desired configuration, one of:
+* `FOR_CURRENT_PLATFORM`: appropriate to the current operating system (default)
+* `OS_X`: for a Mac OS X-like file system
+* `UNIX`: for a UNIX-like file system
+* `WINDOWS`: for a Windows-like file system
+
+For example, the following defines a Windows-like temporary directory regardless of the current operating system:
+
+```java
+@Test
+void test(@JimfsTempDir(WINDOWS) Path tempDir) {
+  assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("\\");
+}
+```
+
+## Improvements
+
+Compared to the native configuration options that Jimfs provides,
+Jimfs JUnit Jupiter exposes a much smaller surface to keep its usage simple.
+
+In case you are missing something for your use case, please [raise an issue](../../issues/new)!
 
 ## License
 
