@@ -9,8 +9,12 @@ jobs:
 
   java_21:
 
-    name: Java 21
-    runs-on: ubuntu-latest
+    name: Java 21 (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macOS-latest, windows-latest ]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
