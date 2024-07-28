@@ -27,7 +27,12 @@ import org.junit.jupiter.api.io.TempDir;
  * {@link TempDir} composed annotation that sets the {@link TempDir#factory() factory} attribute to
  * {@link JimfsTempDirFactory}.
  *
- * <p>The annotation can be used as a drop-in replacement for {@code @TempDir}.
+ * <p>The annotation can be used as a drop-in replacement for {@code @TempDir(factory =
+ * JimfsTempDirFactory.class)}.
+ *
+ * <p>Please note that only annotated fields or parameters of type {@link java.nio.file.Path} are
+ * supported as Jimfs is a non-default file system, and {@link java.io.File} instances are
+ * associated with the default file system only.
  */
 @Target({ElementType.ANNOTATION_TYPE, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)

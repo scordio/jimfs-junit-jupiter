@@ -67,6 +67,9 @@ void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
 `tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
 operating system.
 
+Note that only annotated fields or parameters of type `Path` are supported as Jimfs is a non-default file system,
+and `File` instances are associated with the default file system only.
+
 ### @JimfsTempDir
 
 To cut verbosity, `@JimfsTempDir` can be used as a drop-in replacement for
@@ -82,9 +85,6 @@ void test(@JimfsTempDir Path tempDir) {
 The default behavior of the composed annotation is equivalent to using `JimfsTempDirFactory` directly:
 `tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
 operating system.
-
-Similar to `@TempDir`, the composed annotation can be used to annotate a field in a test class, or a parameter in a
-lifecycle method, or test method of type `Path` or `File` that should be resolved into a temporary directory.
 
 For better control over the underlying in-memory file system,
 `@JimfsTempDir` offers an optional `value` attribute that can be set to the desired configuration, one of:

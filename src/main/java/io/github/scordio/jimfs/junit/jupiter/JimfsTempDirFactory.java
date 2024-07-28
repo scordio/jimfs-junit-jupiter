@@ -38,6 +38,10 @@ import org.junit.jupiter.api.io.TempDirFactory;
  * <p>For better control over the underlying in-memory file system, consider using the {@link
  * JimfsTempDir} composed annotation and its {@link JimfsTempDir#value() value} attribute.
  *
+ * <p>Please note that only annotated fields or parameters of type {@link java.nio.file.Path} are
+ * supported as Jimfs is a non-default file system, and {@link java.io.File} instances are
+ * associated with the default file system only.
+ *
  * @see Jimfs#newFileSystem(Configuration)
  * @see Configuration#forCurrentPlatform()
  */
