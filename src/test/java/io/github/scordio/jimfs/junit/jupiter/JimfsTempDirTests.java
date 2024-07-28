@@ -85,11 +85,8 @@ class JimfsTempDirTests {
   @Nested
   class With_OS_X_Configuration {
 
-    @JimfsTempDir(OS_X)
-    Path tempDir;
-
     @Test
-    void should_use_os_x_configuration() {
+    void should_use_os_x_configuration(@JimfsTempDir(OS_X) Path tempDir) {
       assertThat(tempDir).satisfies(osXFileSystem());
     }
   }
@@ -97,11 +94,8 @@ class JimfsTempDirTests {
   @Nested
   class With_UNIX_Configuration {
 
-    @JimfsTempDir(UNIX)
-    Path tempDir;
-
     @Test
-    void should_use_unix_configuration() {
+    void should_use_unix_configuration(@JimfsTempDir(UNIX) Path tempDir) {
       assertThat(tempDir).satisfies(unixFileSystem());
     }
   }
@@ -109,11 +103,8 @@ class JimfsTempDirTests {
   @Nested
   class With_WINDOWS_Configuration {
 
-    @JimfsTempDir(WINDOWS)
-    Path tempDir;
-
     @Test
-    void should_use_windows_configuration() {
+    void should_use_windows_configuration(@JimfsTempDir(WINDOWS) Path tempDir) {
       assertThat(tempDir).satisfies(windowsFileSystem());
     }
   }

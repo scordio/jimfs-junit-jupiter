@@ -24,8 +24,8 @@ import java.util.function.Supplier;
 import org.junit.jupiter.api.io.TempDir;
 
 /**
- * {@link TempDir} composed annotation that sets the {@link TempDir#factory() factory}
- * attribute to {@link JimfsTempDirFactory}.
+ * {@link TempDir} composed annotation that sets the {@link TempDir#factory() factory} attribute to
+ * {@link JimfsTempDirFactory}.
  *
  * <p>The annotation can be used as a drop-in replacement for {@code @TempDir}.
  */

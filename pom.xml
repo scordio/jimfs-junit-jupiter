@@ -135,6 +135,7 @@
         <version>2.43.0</version>
         <configuration>
           <java>
+            <googleJavaFormat/>
             <includes>
               <include>src/main/java/**/*.java</include>
               <include>src/test/java/**/*.java</include>

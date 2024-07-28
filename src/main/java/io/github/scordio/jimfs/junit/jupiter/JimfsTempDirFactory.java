@@ -27,17 +27,16 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.io.TempDirFactory;
 
 /**
- * {@link TempDirFactory} implementation that creates an in-memory temporary directory via
- * {@link Jimfs}, using {@value DEFAULT_PREFIX} as the name prefix.
+ * {@link TempDirFactory} implementation that creates an in-memory temporary directory via {@link
+ * Jimfs}, using {@value DEFAULT_PREFIX} as the name prefix.
  *
  * <p>If used as a standalone factory within the {@link org.junit.jupiter.api.io.TempDir}
- * annotation, or set as value for the {@value DEFAULT_FACTORY_PROPERTY_NAME}
- * configuration property, the factory configures the underlying file system
- * {@link Configuration#forCurrentPlatform() appropriately for the current operating system}.
+ * annotation, or set as value for the {@value DEFAULT_FACTORY_PROPERTY_NAME} configuration
+ * property, the factory configures the underlying file system {@link
+ * Configuration#forCurrentPlatform() appropriately for the current operating system}.
  *
- * <p>For better control over the underlying in-memory file system, consider using the
- * {@link JimfsTempDir} composed annotation and its {@link JimfsTempDir#value() value}
- * attribute.
+ * <p>For better control over the underlying in-memory file system, consider using the {@link
+ * JimfsTempDir} composed annotation and its {@link JimfsTempDir#value() value} attribute.
  *
  * @see Jimfs#newFileSystem(Configuration)
  * @see Configuration#forCurrentPlatform()
@@ -52,9 +51,7 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 
   private FileSystem fileSystem;
 
-  /**
-   * Create a new {@code JimfsTempDirFactory} instance.
-   */
+  /** Create a new {@code JimfsTempDirFactory} instance. */
   public JimfsTempDirFactory() {}
 
   /** {@inheritDoc} */
