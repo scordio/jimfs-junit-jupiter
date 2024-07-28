@@ -42,13 +42,14 @@ Compatibility is guaranteed only with the JUnit Jupiter versions from 5.10 to th
   <groupId>io.github.scordio</groupId>
   <artifactId>jimfs-junit-jupiter</artifactId>
   <version>${jimfs-junit-jupiter.version}</version>
+  <scope>test</scope>
 </dependency>
 ```
 
 ### Gradle
 
 ```kotlin
-implementation("io.github.scordio:jimfs-junit-jupiter:${jimfsJunitJupiterVersion}")
+testImplementation("io.github.scordio:jimfs-junit-jupiter:${jimfsJunitJupiterVersion}")
 ```
 
 ### JimfsTempDirFactory
