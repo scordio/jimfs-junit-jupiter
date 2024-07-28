@@ -74,6 +74,9 @@ void test(@JimfsTempDir Path tempDir) {
 The behavior is equivalent to using `JimfsTempDirFactory` directly:
 `tempDir` is resolved into a Jimfs based temporary directory appropriate to the current operating system.
 
+Similarly to `@TempDir`, `@JimfsTempDir` can be used to annotate a field in a test class or a parameter in a
+lifecycle method or test method of type `Path` or `File` that should be resolved into a temporary directory.
+
 For better control of the underlying Jimfs file system,
 `@JimfsTempDir` offers an optional `value` attribute that can be set to the desired configuration, one of:
 * `FOR_CURRENT_PLATFORM`: appropriate to the current operating system (default)
@@ -89,6 +92,19 @@ void test(@JimfsTempDir(WINDOWS) Path tempDir) {
   assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("\\");
 }
 ```
+
+### Default Configuration
+
+You can use the `junit.jupiter.tempdir.factory.default`
+[configuration parameter](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params)
+to specify the fully qualified class name of `JimfsTempDirFactory`:
+
+```
+junit.jupiter.tempdir.factory.default=io.github.scordio.jimfs.junit.jupiter.JimfsTempDirFactory
+```
+
+`JimfsTempDirFactory` will be used for all `@TempDir` annotations unless the `factory` attribute of the annotation
+specifies a different factory.
 
 ## Improvements
 
