@@ -72,7 +72,9 @@ and `File` instances are associated with the default file system only.
 
 ### @JimfsTempDir
 
-To cut verbosity, `@JimfsTempDir` can be used as a drop-in replacement for
+`@JimfsTempDir`, a `@TempDir`
+[composed annotation](https://junit.org/junit5/docs/current/user-guide/#writing-tests-meta-annotations),
+can be used as a drop-in replacement for
 `@TempDir(factory = JimfsTempDirFactory.class)`:
 
 ```java
@@ -82,7 +84,7 @@ void test(@JimfsTempDir Path tempDir) {
 }
 ```
 
-The default behavior of the composed annotation is equivalent to using `JimfsTempDirFactory` directly:
+The default behavior of the annotation is equivalent to using `JimfsTempDirFactory` directly:
 `tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
 operating system.
 
