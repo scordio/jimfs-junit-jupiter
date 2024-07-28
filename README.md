@@ -3,11 +3,16 @@
 [![CI](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml?query=branch%3Amain)
 [![Cross-Version](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml?query=branch%3Amain)
 
-This project provides a [JUnit Jupiter][] extension that adds support for
+This project provides a [JUnit Jupiter][] extension for in-memory
 [`@TempDir`](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html)
-directories based on the in-memory file system [Jimfs][].
+directories via the [Jimfs][] file system.
 
 ## Motivation
+
+Today it is already possible to use Jimfs and JUnit Jupiter together to create in-memory temporary directories for
+testing.
+However, it requires Jimfs in-memory file system handling hooked into JUnit Jupiter test lifecycle callbacks,
+a boilerplate that users must implement on their own.
 
 Starting from [version 5.10](https://junit.org/junit5/docs/5.10.0/release-notes/index.html#release-notes),
 JUnit Jupiter offers a
@@ -16,7 +21,7 @@ for customizing how temporary directories are created via the `@TempDir` annotat
 The SPI allows libraries like Jimfs to provide their own implementation.
 
 According to [google/jimfs#258](https://github.com/google/jimfs/issues/258),
-Google is currently not a JUnit Jupiter user and first-party support might be provided only once Google moves to it.
+Google is not yet a JUnit Jupiter user and first-party support may only be provided when Google adopts JUnit Jupiter.
 
 For this reason, I decided to implement this extension to aid all the users that would like a smooth integration between
 Jimfs and JUnit Jupiter.
@@ -25,6 +30,7 @@ If Google ever offers first-party support for this integration, this project wil
 ## Compatibility
 
 Jimfs JUnit Jupiter is based on JUnit Jupiter 5, thus requiring at least Java 8.
+
 Compatibility is guaranteed only with the JUnit Jupiter versions from 5.10 to the latest.
 
 ## Getting Started
@@ -58,13 +64,13 @@ void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
 }
 ```
 
-`tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriate to the current operating system.
+`tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
+operating system.
 
 ### @JimfsTempDir
 
-To cut verbosity, `@JimfsTempDir` can be used as a
-[composed annotation](https://junit.org/junit5/docs/current/user-guide/#writing-tests-meta-annotations)
-of `@TempDir`:
+To cut verbosity, `@JimfsTempDir` can be used as a drop-in replacement for
+`@TempDir(factory = JimfsTempDirFactory.class)`:
 
 ```java
 @Test
@@ -73,11 +79,12 @@ void test(@JimfsTempDir Path tempDir) {
 }
 ```
 
-The behavior is equivalent to using `JimfsTempDirFactory` directly:
-`tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriate to the current operating system.
+The default behavior of the composed annotation is equivalent to using `JimfsTempDirFactory` directly:
+`tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
+operating system.
 
-Similar to `@TempDir`, `@JimfsTempDir` can be used to annotate a field in a test class or a parameter in a
-lifecycle method or test method of type `Path` or `File` that should be resolved into a temporary directory.
+Similar to `@TempDir`, the composed annotation can be used to annotate a field in a test class, or a parameter in a
+lifecycle method, or test method of type `Path` or `File` that should be resolved into a temporary directory.
 
 For better control over the underlying in-memory file system,
 `@JimfsTempDir` offers an optional `value` attribute that can be set to the desired configuration, one of:
@@ -86,7 +93,8 @@ For better control over the underlying in-memory file system,
 * `UNIX`: for a UNIX-like file system
 * `WINDOWS`: for a Windows-like file system
 
-For example, the following defines a Windows-like temporary directory regardless of the current operating system:
+For example, the following defines a Windows-like temporary directory regardless of the operating system the test
+is running on:
 
 ```java
 @Test
@@ -99,14 +107,15 @@ void test(@JimfsTempDir(WINDOWS) Path tempDir) {
 
 The `junit.jupiter.tempdir.factory.default`
 [configuration parameter](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params)
-can be used to specify the fully qualified class name of `JimfsTempDirFactory`:
+can be used to specify the fully qualified class name of the factory to be used by default.
+For example, the following configures `JimfsTempDirFactory`:
 
-```
+```properties
 junit.jupiter.tempdir.factory.default=io.github.scordio.jimfs.junit.jupiter.JimfsTempDirFactory
 ```
 
-`JimfsTempDirFactory` will be used for all `@TempDir` annotations unless the `factory` attribute of the annotation
-specifies a different factory.
+The factory will be used for all `@TempDir` annotations unless the `factory` attribute of the annotation
+specifies a different type.
 
 ## Improvements
 
