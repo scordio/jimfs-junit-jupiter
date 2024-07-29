@@ -100,6 +100,8 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.8.0</version>
           <configuration>
+            <!-- https://bugs.openjdk.org/browse/JDK-8274639 -->
+            <additionalOptions>--link-modularity-mismatch=info</additionalOptions>
             <failOnWarnings>true</failOnWarnings>
             <links>
               <link>https://javadoc.io/static/com.google.jimfs/jimfs/${jimfs.version}/</link>
