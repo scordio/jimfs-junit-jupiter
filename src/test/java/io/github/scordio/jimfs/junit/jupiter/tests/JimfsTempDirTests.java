@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio.jimfs.junit.jupiter;
+package io.github.scordio.jimfs.junit.jupiter.tests;
 
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.FOR_CURRENT_PLATFORM;
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.OS_X;
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.UNIX;
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.WINDOWS;
-import static io.github.scordio.jimfs.junit.jupiter.Requirements.osXFileSystem;
-import static io.github.scordio.jimfs.junit.jupiter.Requirements.unixFileSystem;
-import static io.github.scordio.jimfs.junit.jupiter.Requirements.windowsFileSystem;
+import static io.github.scordio.jimfs.junit.jupiter.tests.Requirements.osXFileSystem;
+import static io.github.scordio.jimfs.junit.jupiter.tests.Requirements.unixFileSystem;
+import static io.github.scordio.jimfs.junit.jupiter.tests.Requirements.windowsFileSystem;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import io.github.scordio.jimfs.junit.jupiter.JimfsTempDir;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

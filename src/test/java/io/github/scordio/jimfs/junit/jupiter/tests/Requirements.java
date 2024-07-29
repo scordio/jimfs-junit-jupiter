@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio.jimfs.junit.jupiter;
+package io.github.scordio.jimfs.junit.jupiter.tests;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
