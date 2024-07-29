@@ -20,11 +20,12 @@ JUnit Jupiter offers a
 for customizing how temporary directories are created via the `@TempDir` annotation.
 The SPI allows libraries like Jimfs to provide their own implementation.
 
-According to [google/jimfs#258](https://github.com/google/jimfs/issues/258),
-Google is not yet a JUnit Jupiter user and first-party support may only be provided when Google adopts JUnit Jupiter.
+I asked Google to provide first-party support in [google/jimfs#258](https://github.com/google/jimfs/issues/258).
+However, Google has not yet started using JUnit Jupiter and first-party support may only be provided when Google
+does so.
 
-For this reason, I decided to implement this extension to aid all the users that would like a smooth integration between
-Jimfs and JUnit Jupiter.
+For this reason, I decided to implement this extension to aid all the users that would like a smooth integration
+between Jimfs and JUnit Jupiter.
 If Google ever offers first-party support for this integration, this project will likely be discontinued.
 
 ## Compatibility
