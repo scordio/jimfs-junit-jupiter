@@ -41,4 +41,4 @@ jobs:
           distribution: 'zulu'
           cache: maven
       - name: Generate Javadoc
-        run: ./mvnw $MAVEN_ARGS javadoc:javadoc
+        run: ./mvnw $MAVEN_ARGS compile javadoc:javadoc
