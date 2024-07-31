@@ -53,7 +53,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        junit-jupiter: [5.10.0, 5.10.3, 5.11.0-M2]
+        junit-jupiter: [5.10.0, 5.10.3, 5.11.0-RC1]
     runs-on: ubuntu-latest
 
     steps:
