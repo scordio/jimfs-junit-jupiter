@@ -1,4 +1,4 @@
-# Jimfs JUnit Jupiter
+# Jimfs JUnit Jupiter [![Maven Central](https://img.shields.io/maven-central/v/io.github.scordio/jimfs-junit-jupiter?label=Maven%20Central)](https://mvnrepository.com/artifact/io.github.scordio/jimfs-junit-jupiter) [![javadoc](https://javadoc.io/badge2/io.github.scordio/jimfs-junit-jupiter/javadoc.svg)](https://javadoc.io/doc/io.github.scordio/jimfs-junit-jupiter)
 
 [![CI](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml?query=branch%3Amain)
 [![Cross-Version](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml?query=branch%3Amain)
