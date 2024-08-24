@@ -19,10 +19,12 @@ import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.F
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.OS_X;
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.UNIX;
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.WINDOWS;
+import static io.github.scordio.jimfs.junit.jupiter.JupiterEngineTestKit.executeTestsForClass;
 import static io.github.scordio.jimfs.junit.jupiter.Requirements.osXFileSystem;
 import static io.github.scordio.jimfs.junit.jupiter.Requirements.unixFileSystem;
 import static io.github.scordio.jimfs.junit.jupiter.Requirements.windowsFileSystem;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.condition.OS.MAC;
 
 import java.nio.file.Path;
 import org.junit.jupiter.api.Nested;
@@ -36,49 +38,104 @@ class JimfsTempDirTests {
   @Nested
   class With_Default_Configuration {
 
-    @JimfsTempDir Path tempDir;
-
-    @EnabledOnOs(OS.MAC)
+    @EnabledOnOs(MAC)
     @Test
     void should_use_os_x_configuration() {
-      assertThat(tempDir).satisfies(osXFileSystem());
+      executeTestsForClass(OsXTestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
-    @DisabledOnOs({OS.MAC, OS.WINDOWS})
+    static class OsXTestCase {
+
+      @Test
+      void test(@JimfsTempDir Path tempDir) {
+        assertThat(tempDir).satisfies(osXFileSystem());
+      }
+    }
+
+    @DisabledOnOs({MAC, OS.WINDOWS})
     @Test
     void should_use_unix_configuration() {
-      assertThat(tempDir).satisfies(unixFileSystem());
+      executeTestsForClass(UnixTestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
+    }
+
+    static class UnixTestCase {
+
+      @Test
+      void test(@JimfsTempDir Path tempDir) {
+        assertThat(tempDir).satisfies(unixFileSystem());
+      }
     }
 
     @EnabledOnOs(OS.WINDOWS)
     @Test
     void should_use_windows_configuration() {
-      assertThat(tempDir).satisfies(windowsFileSystem());
+      executeTestsForClass(WindowsTestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
+    }
+
+    static class WindowsTestCase {
+
+      @Test
+      void test(@JimfsTempDir Path tempDir) {
+        assertThat(tempDir).satisfies(windowsFileSystem());
+      }
     }
   }
 
   @Nested
   class With_FOR_CURRENT_PLATFORM_Configuration {
 
-    @JimfsTempDir(FOR_CURRENT_PLATFORM)
-    Path tempDir;
-
-    @EnabledOnOs(OS.MAC)
+    @EnabledOnOs(MAC)
     @Test
     void should_use_os_x_configuration() {
-      assertThat(tempDir).satisfies(osXFileSystem());
+      executeTestsForClass(OsXTestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
-    @DisabledOnOs({OS.MAC, OS.WINDOWS})
+    static class OsXTestCase {
+
+      @Test
+      void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
+        assertThat(tempDir).satisfies(osXFileSystem());
+      }
+    }
+
+    @DisabledOnOs({MAC, OS.WINDOWS})
     @Test
     void should_use_unix_configuration() {
-      assertThat(tempDir).satisfies(unixFileSystem());
+      executeTestsForClass(UnixTestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
+    }
+
+    static class UnixTestCase {
+
+      @Test
+      void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
+        assertThat(tempDir).satisfies(unixFileSystem());
+      }
     }
 
     @EnabledOnOs(OS.WINDOWS)
     @Test
     void should_use_windows_configuration() {
-      assertThat(tempDir).satisfies(windowsFileSystem());
+      executeTestsForClass(WindowsTestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
+    }
+
+    static class WindowsTestCase {
+
+      @Test
+      void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
+        assertThat(tempDir).satisfies(windowsFileSystem());
+      }
     }
   }
 
@@ -86,8 +143,18 @@ class JimfsTempDirTests {
   class With_OS_X_Configuration {
 
     @Test
-    void should_use_os_x_configuration(@JimfsTempDir(OS_X) Path tempDir) {
-      assertThat(tempDir).satisfies(osXFileSystem());
+    void should_use_os_x_configuration() {
+      executeTestsForClass(TestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
+    }
+
+    static class TestCase {
+
+      @Test
+      void test(@JimfsTempDir(OS_X) Path tempDir) {
+        assertThat(tempDir).satisfies(osXFileSystem());
+      }
     }
   }
 
@@ -95,8 +162,18 @@ class JimfsTempDirTests {
   class With_UNIX_Configuration {
 
     @Test
-    void should_use_unix_configuration(@JimfsTempDir(UNIX) Path tempDir) {
-      assertThat(tempDir).satisfies(unixFileSystem());
+    void should_use_os_x_configuration() {
+      executeTestsForClass(TestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
+    }
+
+    static class TestCase {
+
+      @Test
+      void test(@JimfsTempDir(UNIX) Path tempDir) {
+        assertThat(tempDir).satisfies(unixFileSystem());
+      }
     }
   }
 
@@ -104,8 +181,18 @@ class JimfsTempDirTests {
   class With_WINDOWS_Configuration {
 
     @Test
-    void should_use_windows_configuration(@JimfsTempDir(WINDOWS) Path tempDir) {
-      assertThat(tempDir).satisfies(windowsFileSystem());
+    void should_use_windows_configuration() {
+      executeTestsForClass(TestCase.class)
+          .testEvents()
+          .assertStatistics(stats -> stats.started(1).succeeded(1));
+    }
+
+    static class TestCase {
+
+      @Test
+      void test(@JimfsTempDir(WINDOWS) Path tempDir) {
+        assertThat(tempDir).satisfies(windowsFileSystem());
+      }
     }
   }
 }
