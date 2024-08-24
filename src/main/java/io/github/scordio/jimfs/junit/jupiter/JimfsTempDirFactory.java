@@ -18,9 +18,6 @@ package io.github.scordio.jimfs.junit.jupiter;
 import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
 import java.io.IOException;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Field;
-import java.lang.reflect.Parameter;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,7 +26,6 @@ import java.util.function.Supplier;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.io.TempDirFactory;
-import org.junit.platform.commons.util.Preconditions;
 
 /**
  * {@link TempDirFactory} implementation that creates an in-memory temporary directory via {@link
@@ -70,8 +66,6 @@ public final class JimfsTempDirFactory implements TempDirFactory {
       throws IOException {
     Optional<JimfsTempDir> annotation = elementContext.findAnnotation(JimfsTempDir.class);
 
-    assertSupportedType(elementContext.getAnnotatedElement(), annotation.isPresent());
-
     Supplier<Configuration> configuration =
         annotation
             .map(JimfsTempDir::value)
@@ -81,29 +75,6 @@ public final class JimfsTempDirFactory implements TempDirFactory {
     fileSystem = Jimfs.newFileSystem(configuration.get());
     Path root = fileSystem.getRootDirectories().iterator().next();
     return Files.createTempDirectory(root, DEFAULT_PREFIX);
-  }
-
-  private static void assertSupportedType(AnnotatedElement element, boolean annotated) {
-    if (element instanceof Parameter) {
-      assertSupportedType("parameter", annotated, ((Parameter) element).getType());
-    } else if (element instanceof Field) {
-      assertSupportedType("field", annotated, ((Field) element).getType());
-    } else {
-      throw new IllegalArgumentException(
-          "Unsupported annotated element type: " + element.getClass().getName());
-    }
-  }
-
-  private static void assertSupportedType(String target, boolean annotated, Class<?> type) {
-    Preconditions.condition(
-        type == Path.class,
-        "Can only resolve "
-            + (annotated ? "@JimfsTempDir " : "@TempDir ")
-            + target
-            + " of type "
-            + Path.class.getName()
-            + " but was: "
-            + type.getName());
   }
 
   /** {@inheritDoc} */
