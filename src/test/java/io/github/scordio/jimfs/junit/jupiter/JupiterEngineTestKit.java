@@ -20,14 +20,25 @@ import static org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder.r
 
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
+import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.testkit.engine.EngineExecutionResults;
 import org.junit.platform.testkit.engine.EngineTestKit;
 
 class JupiterEngineTestKit {
 
   static EngineExecutionResults executeTestsForClass(Class<?> testClass) {
-    DiscoverySelector[] selectors = new DiscoverySelector[] {selectClass(testClass)};
-    LauncherDiscoveryRequest request = request().selectors(selectors).build();
+    return executeTests(selectClass(testClass));
+  }
+
+  private static EngineExecutionResults executeTests(DiscoverySelector... selectors) {
+    return executeTests(request().selectors(selectors));
+  }
+
+  private static EngineExecutionResults executeTests(LauncherDiscoveryRequestBuilder builder) {
+    return executeTests(builder.build());
+  }
+
+  static EngineExecutionResults executeTests(LauncherDiscoveryRequest request) {
     return EngineTestKit.execute("junit-jupiter", request);
   }
 }
