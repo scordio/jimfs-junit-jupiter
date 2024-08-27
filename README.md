@@ -69,9 +69,6 @@ void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
 `tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
 operating system.
 
-Note that only annotated fields or parameters of type `Path` are supported as Jimfs is a non-default file system,
-and `File` instances are associated with the default file system only.
-
 ### @JimfsTempDir
 
 `@JimfsTempDir`, a `@TempDir`
@@ -120,6 +117,11 @@ junit.jupiter.tempdir.factory.default=io.github.scordio.jimfs.junit.jupiter.Jimf
 
 The factory will be used for all `@TempDir` annotations unless the `factory` attribute of the annotation
 specifies a different type.
+
+### Limitations
+
+Jimfs JUnit Jupiter only supports annotated fields or parameters of type `Path`, as Jimfs is a non-default file
+system and `File` instances can only be associated with the default file system.
 
 ## Improvements
 
