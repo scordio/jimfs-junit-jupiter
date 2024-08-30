@@ -55,7 +55,7 @@ testImplementation("io.github.scordio:jimfs-junit-jupiter:${jimfsJunitJupiterVer
 
 ### JimfsTempDirFactory
 
-The simplest possible usage is to set the
+The simplest usage is to set the
 [`factory`](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html#factory())
 attribute of `@TempDir` to `JimfsTempDirFactory`:
 
@@ -67,14 +67,13 @@ void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
 ```
 
 `tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
-operating system.
+platform.
 
 ### @JimfsTempDir
 
 `@JimfsTempDir`, a `@TempDir`
 [composed annotation](https://junit.org/junit5/docs/current/user-guide/#writing-tests-meta-annotations),
-can be used as a drop-in replacement for
-`@TempDir(factory = JimfsTempDirFactory.class)`:
+can be used as a drop-in replacement for `@TempDir(factory = JimfsTempDirFactory.class)`:
 
 ```java
 @Test
@@ -85,16 +84,17 @@ void test(@JimfsTempDir Path tempDir) {
 
 The default behavior of the annotation is equivalent to using `JimfsTempDirFactory` directly:
 `tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
-operating system.
+platform.
 
-For better control over the underlying in-memory file system,
-`@JimfsTempDir` offers an optional `value` attribute that can be set to the desired configuration, one of:
-* `FOR_CURRENT_PLATFORM`: appropriate to the current operating system (default)
+For better control over the underlying in-memory file system, `@JimfsTempDir` offers an optional `value` attribute
+that can be set to the desired configuration, one of:
+* `DEFAULT`: based on the corresponding [configuration parameter](#default-jimfs-configuration) (default)
+* `FOR_CURRENT_PLATFORM`: appropriate to the current platform
 * `OS_X`: for a Mac OS X-like file system
 * `UNIX`: for a UNIX-like file system
 * `WINDOWS`: for a Windows-like file system
 
-For example, the following defines a Windows-like temporary directory regardless of the operating system the test
+For example, the following defines a Windows-like temporary directory regardless of the platform the test
 is running on:
 
 ```java
@@ -104,11 +104,16 @@ void test(@JimfsTempDir(WINDOWS) Path tempDir) {
 }
 ```
 
-### Default Configuration
+### Configuration Parameters
 
-The `junit.jupiter.tempdir.factory.default`
-[configuration parameter](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params)
-can be used to specify the fully qualified class name of the factory to be used by default.
+Jimfs JUnit Jupiter supports JUnit
+[configuration parameters](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params).
+
+#### Default `@TempDir` Factory
+
+The `junit.jupiter.tempdir.factory.default` configuration parameter sets the default factory to use, expecting its
+fully qualified class name.
+
 For example, the following configures `JimfsTempDirFactory`:
 
 ```properties
@@ -117,6 +122,25 @@ junit.jupiter.tempdir.factory.default=io.github.scordio.jimfs.junit.jupiter.Jimf
 
 The factory will be used for all `@TempDir` annotations unless the `factory` attribute of the annotation
 specifies a different type.
+
+#### Default Jimfs Configuration
+
+The `jimfs.junit.jupiter.tempdir.configuration.default` configuration parameter sets the default Jimfs configuration
+to use, expecting one of the following (case-insensitive):
+* `FOR_CURRENT_PLATFORM`: appropriate to the current platform (default)
+* `OS_X`: for a Mac OS X-like file system
+* `UNIX`: for a UNIX-like file system
+* `WINDOWS`: for a Windows-like file system
+
+For example, the following defines a Windows-like temporary directory regardless of the platform the test
+is running on:
+
+```properties
+jimfs.junit.jupiter.tempdir.configuration.default=windows
+```
+
+All Jimfs-based temporary directories will be configured accordingly unless `@JimfsTempDir` is used and
+its `value` attribute is set.
 
 ### Limitations
 

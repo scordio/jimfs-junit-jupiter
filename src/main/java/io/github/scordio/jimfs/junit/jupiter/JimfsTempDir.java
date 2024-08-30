@@ -41,13 +41,24 @@ import org.junit.jupiter.api.io.TempDir;
 public @interface JimfsTempDir {
 
   /**
+   * Configuration parameter to set the default {@link Configuration Configuration} for the
+   * in-memory file system.
+   *
+   * <p>If this configuration parameter is not set, the default is {@link
+   * Configuration#FOR_CURRENT_PLATFORM}.
+   *
+   * @since 0.2.0
+   */
+  String DEFAULT_CONFIGURATION_PARAMETER_NAME = "jimfs.junit.jupiter.tempdir.configuration.default";
+
+  /**
    * Configuration for the in-memory file system.
    *
    * <p>Defaults to {@link Configuration#FOR_CURRENT_PLATFORM}.
    *
    * @return the configuration to use for the in-memory file system
    */
-  Configuration value() default Configuration.FOR_CURRENT_PLATFORM;
+  Configuration value() default Configuration.DEFAULT;
 
   /**
    * Enumeration of configurations for the in-memory file system.
@@ -56,7 +67,14 @@ public @interface JimfsTempDir {
    */
   enum Configuration {
     /**
-     * Configuration appropriate to the current operating system.
+     * Default configuration.
+     *
+     * @see #DEFAULT_CONFIGURATION_PARAMETER_NAME
+     * @since 0.2.0
+     */
+    DEFAULT(com.google.common.jimfs.Configuration::forCurrentPlatform),
+    /**
+     * Configuration appropriate to the current platform.
      *
      * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
      */

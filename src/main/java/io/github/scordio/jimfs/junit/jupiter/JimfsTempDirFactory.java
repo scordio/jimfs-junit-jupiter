@@ -21,7 +21,9 @@ import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -31,28 +33,33 @@ import org.junit.jupiter.api.io.TempDirFactory;
  * {@link TempDirFactory} implementation that creates an in-memory temporary directory via {@link
  * Jimfs}, using {@value DEFAULT_PREFIX} as the name prefix.
  *
- * <p>If used as a standalone factory within the {@link org.junit.jupiter.api.io.TempDir}
- * annotation, or set as value for the {@value DEFAULT_FACTORY_PROPERTY_NAME} configuration
- * property, the factory configures the underlying file system {@link
- * Configuration#forCurrentPlatform() appropriately for the current operating system}.
+ * <p>When used as a standalone factory within the {@link org.junit.jupiter.api.io.TempDir}
+ * annotation, or set as value for the {@value
+ * org.junit.jupiter.api.io.TempDir#DEFAULT_FACTORY_PROPERTY_NAME} configuration parameter, the
+ * factory configures the underlying file system appropriately for the {@link
+ * com.google.common.jimfs.Configuration#forCurrentPlatform() current platform}.
  *
- * <p>For better control over the underlying in-memory file system, consider using the {@link
- * JimfsTempDir} composed annotation and its {@link JimfsTempDir#value() value} attribute.
+ * <p>For better control over the underlying in-memory file system, consider using one of the
+ * following options:
+ *
+ * <ul>
+ *   <li>The {@link JimfsTempDir} composed annotation and its {@link JimfsTempDir#value() value}
+ *       attribute.
+ *   <li>The {@value JimfsTempDir#DEFAULT_CONFIGURATION_PARAMETER_NAME} configuration parameter.
+ * </ul>
  *
  * <p>Please note that only annotated fields or parameters of type {@link java.nio.file.Path} are
  * supported as Jimfs is a non-default file system, and {@link java.io.File} instances are
  * associated with the default file system only.
  *
- * @see Jimfs#newFileSystem(Configuration)
- * @see Configuration#forCurrentPlatform()
+ * @see Jimfs#newFileSystem(com.google.common.jimfs.Configuration)
+ * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
  */
 public final class JimfsTempDirFactory implements TempDirFactory {
 
   private static final String DEFAULT_PREFIX = "junit-";
-
-  @SuppressWarnings("unused")
-  private static final String DEFAULT_FACTORY_PROPERTY_NAME =
-      org.junit.jupiter.api.io.TempDir.DEFAULT_FACTORY_PROPERTY_NAME;
+  private static final Function<String, JimfsTempDir.Configuration> CONFIGURATION_TRANSFORMER =
+      value -> JimfsTempDir.Configuration.valueOf(value.trim().toUpperCase(Locale.ROOT));
 
   private FileSystem fileSystem;
 
@@ -69,12 +76,25 @@ public final class JimfsTempDirFactory implements TempDirFactory {
     Supplier<Configuration> configuration =
         annotation
             .map(JimfsTempDir::value)
+            .filter(JimfsTempDirFactory::isNotDefaultConfiguration)
             .map(JimfsTempDir.Configuration::getConfiguration)
-            .orElse(Configuration::forCurrentPlatform);
+            .orElseGet(
+                () ->
+                    extensionContext
+                        .getConfigurationParameter(
+                            JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
+                            CONFIGURATION_TRANSFORMER)
+                        .filter(JimfsTempDirFactory::isNotDefaultConfiguration)
+                        .map(JimfsTempDir.Configuration::getConfiguration)
+                        .orElse(Configuration::forCurrentPlatform));
 
     fileSystem = Jimfs.newFileSystem(configuration.get());
     Path root = fileSystem.getRootDirectories().iterator().next();
     return Files.createTempDirectory(root, DEFAULT_PREFIX);
+  }
+
+  private static boolean isNotDefaultConfiguration(JimfsTempDir.Configuration value) {
+    return value != JimfsTempDir.Configuration.DEFAULT;
   }
 
   /** {@inheritDoc} */
