@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        junit-jupiter: [5.10.0, 5.10.3]
+        junit-jupiter: [5.10.0, 5.10.3, 5.12.0-SNAPSHOT]
     runs-on: ubuntu-latest
 
     steps:
@@ -45,4 +45,4 @@ jobs:
           distribution: 'zulu'
           cache: maven
       - name: Test
-        run: ./mvnw $MAVEN_ARGS -Djunit-jupiter.version=${{ matrix.junit-jupiter }} verify
+        run: ./mvnw $MAVEN_ARGS -Psonatype-snapshots -Djunit-jupiter.version=${{ matrix.junit-jupiter }} verify
