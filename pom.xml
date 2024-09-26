@@ -147,6 +147,7 @@
             <googleJavaFormat/>
             <includes>
               <include>src/main/java/**/*.java</include>
+              <include>src/main/java9/**/*.java</include>
               <include>src/test/java/**/*.java</include>
             </includes>
           </java>
@@ -162,11 +163,11 @@
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
-        <version>4.5</version>
+        <version>4.6</version>
         <configuration>
           <licenseSets>
             <licenseSet>
-              <header>com/mycila/maven/plugin/license/templates/APACHE-2.txt</header>
+              <header>com/mycila/maven/plugin/license/templates/APACHE-2-noemail.txt</header>
               <includes>
                 <include>src/**/*.java</include>
               </includes>
@@ -175,7 +176,6 @@
           <properties>
             <year>2024</year>
             <owner>Stefano Cordio</owner>
-            <email>stefano.cordio@gmail.com</email>
           </properties>
         </configuration>
         <executions>

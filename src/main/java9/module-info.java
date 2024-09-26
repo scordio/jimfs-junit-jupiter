@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Stefano Cordio (stefano.cordio@gmail.com)
+ * Copyright © 2024 Stefano Cordio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@
  */
 @SuppressWarnings("requires-transitive-automatic")
 module jimfs.junit.jupiter {
-    requires transitive com.google.common.jimfs;
-    requires org.junit.jupiter.api;
+  requires transitive com.google.common.jimfs;
+  requires org.junit.jupiter.api;
 
-    exports io.github.scordio.jimfs.junit.jupiter;
+  exports io.github.scordio.jimfs.junit.jupiter;
 }

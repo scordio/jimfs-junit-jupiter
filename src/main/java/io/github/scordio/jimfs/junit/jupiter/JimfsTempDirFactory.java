@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Stefano Cordio (stefano.cordio@gmail.com)
+ * Copyright © 2024 Stefano Cordio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
