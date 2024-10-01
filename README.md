@@ -9,7 +9,7 @@ directories via the [Jimfs][] file system.
 
 ## Motivation
 
-Today it is already possible to use Jimfs and JUnit Jupiter together to create in-memory temporary directories for
+Today, it is already possible to use Jimfs and JUnit Jupiter together to create in-memory temporary directories for
 testing.
 However, it requires Jimfs in-memory file system handling hooked into JUnit Jupiter test lifecycle callbacks,
 a boilerplate that users must implement on their own.
@@ -18,15 +18,15 @@ Starting from [version 5.10](https://junit.org/junit5/docs/5.10.0/release-notes/
 JUnit Jupiter offers a
 [`TempDirFactory` SPI](https://junit.org/junit5/docs/5.10.0/user-guide/#writing-tests-built-in-extensions-TempDirectory)
 for customizing how temporary directories are created via the `@TempDir` annotation.
-The SPI allows libraries like Jimfs to provide their own implementation.
+The SPI allows libraries like Jimfs to provide their implementation.
 
 First-party support was requested in [google/jimfs#258](https://github.com/google/jimfs/issues/258).
-However, Google has not yet started using JUnit Jupiter and first-party support may only be provided when Google
-does so.
+However, Google has not yet started using JUnit Jupiter, and such first-party support may only be provided when
+Google does so.
 
 Because of that, this extension was created to aid all the users who would like a smooth integration between Jimfs
 and JUnit Jupiter.
-If Google ever offers first-party support for this integration, this project will likely be discontinued.
+This project will likely be discontinued if Google ever offers first-party support for this integration.
 
 ## Compatibility
 
