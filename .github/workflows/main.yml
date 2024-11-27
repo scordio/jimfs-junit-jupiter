@@ -7,7 +7,7 @@ env:
 
 jobs:
 
-  java_21:
+  java-21:
 
     name: Java 21 (${{ matrix.os }})
     strategy:
@@ -26,6 +26,46 @@ jobs:
           cache: maven
       - name: Test
         run: ./mvnw $MAVEN_ARGS verify
+
+  java-oracle:
+
+    name: Java ${{ matrix.java }}
+    strategy:
+      fail-fast: false
+      matrix:
+        java: [23, 24]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: oracle-actions/setup-java@v1
+        with:
+          website: jdk.java.net
+          release: ${{ matrix.java }}
+          version: latest
+      - name: Test
+        run: ./mvnw $MAVEN_ARGS verify
+
+  junit:
+
+    name: JUnit Jupiter ${{ matrix.junit-jupiter }}
+    strategy:
+      fail-fast: false
+      matrix:
+        junit-jupiter: [5.10.0, 5.10.3, 5.12.0-SNAPSHOT]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+          cache: maven
+      - name: Test
+        run: ./mvnw $MAVEN_ARGS -Psonatype-snapshots -Djunit-jupiter.version=${{ matrix.junit-jupiter }} verify
 
   javadoc:
 
