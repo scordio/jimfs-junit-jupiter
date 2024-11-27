@@ -1,7 +1,6 @@
 # Jimfs JUnit Jupiter [![Maven Central](https://img.shields.io/maven-central/v/io.github.scordio/jimfs-junit-jupiter?label=Maven%20Central)](https://mvnrepository.com/artifact/io.github.scordio/jimfs-junit-jupiter) [![javadoc](https://javadoc.io/badge2/io.github.scordio/jimfs-junit-jupiter/javadoc.svg)](https://javadoc.io/doc/io.github.scordio/jimfs-junit-jupiter)
 
 [![CI](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/main.yml?query=branch%3Amain)
-[![Cross-Version](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml/badge.svg?branch=main)](https://github.com/scordio/jimfs-junit-jupiter/actions/workflows/cross-version.yml?query=branch%3Amain)
 
 This project provides a [JUnit Jupiter][] extension for in-memory
 [`@TempDir`](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html)
@@ -14,8 +13,7 @@ testing.
 However, it requires Jimfs in-memory file system handling hooked into JUnit Jupiter test lifecycle callbacks,
 a boilerplate that users must implement on their own.
 
-Starting from [version 5.10](https://junit.org/junit5/docs/5.10.0/release-notes/index.html#release-notes),
-JUnit Jupiter offers a
+Starting from version 5.10, JUnit Jupiter offers a
 [`TempDirFactory` SPI](https://junit.org/junit5/docs/5.10.0/user-guide/#writing-tests-built-in-extensions-TempDirectory)
 for customizing how temporary directories are created via the `@TempDir` annotation.
 The SPI allows libraries like Jimfs to provide their implementation.
@@ -32,7 +30,10 @@ This project will likely be discontinued if Google ever offers first-party suppo
 
 Jimfs JUnit Jupiter is based on JUnit Jupiter 5, thus requiring at least Java 8.
 
-Compatibility is guaranteed only with the JUnit Jupiter versions from 5.10 to the latest.
+Compatibility is guaranteed only with the JUnit Jupiter versions from
+[5.10.0](https://junit.org/junit5/docs/5.10.0/release-notes/index.html)
+to the
+[latest](https://junit.org/junit5/docs/current/release-notes/index.html).
 
 ## Getting Started
 
