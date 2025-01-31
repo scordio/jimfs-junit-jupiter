@@ -47,13 +47,13 @@ jobs:
       - name: Test
         run: ./mvnw $MAVEN_ARGS verify
 
-  junit:
+  junit-jupiter:
 
     name: JUnit Jupiter ${{ matrix.junit-jupiter }}
     strategy:
       fail-fast: false
       matrix:
-        junit-jupiter: [5.10.0, 5.10.3, 5.11.0, 5.12.0-SNAPSHOT]
+        junit-jupiter: [5.10.0, 5.10.5, 5.11.0, 5.12.0-SNAPSHOT]
     runs-on: ubuntu-latest
 
     steps:
