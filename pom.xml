@@ -174,8 +174,8 @@
             </licenseSet>
           </licenseSets>
           <properties>
-            <year>2024</year>
             <owner>Stefano Cordio</owner>
+            <year>2025</year>
           </properties>
         </configuration>
         <executions>
