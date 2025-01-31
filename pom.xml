@@ -106,13 +106,12 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.11.2</version>
           <configuration>
-            <!-- https://bugs.openjdk.org/browse/JDK-8274639 -->
-            <additionalOptions>--link-modularity-mismatch=info</additionalOptions>
             <failOnWarnings>true</failOnWarnings>
             <links>
               <link>https://javadoc.io/static/com.google.jimfs/jimfs/${jimfs.version}/</link>
               <link>https://junit.org/junit5/docs/${junit-jupiter.version}/api/</link>
             </links>
+            <release>9</release>
           </configuration>
         </plugin>
         <plugin>
@@ -191,16 +190,20 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <executions>
           <execution>
-            <id>java-9</id>
+            <id>default-compile</id>
+            <configuration>
+              <release>9</release>
+            </configuration>
+          </execution>
+          <execution>
+            <id>java-8</id>
             <goals>
               <goal>compile</goal>
             </goals>
             <configuration>
-              <compileSourceRoots>
-                <compileSourceRoot>${project.basedir}/src/main/java9</compileSourceRoot>
-              </compileSourceRoots>
-              <multiReleaseOutput>true</multiReleaseOutput>
-              <release>9</release>
+              <excludes>
+                <exclude>module-info.java</exclude>
+              </excludes>
             </configuration>
           </execution>
         </executions>
