@@ -13,15 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * JUnit Jupiter {@link org.junit.jupiter.api.io.TempDir} extension based on {@link
- * com.google.common.jimfs.Jimfs}.
- */
-@SuppressWarnings("requires-transitive-automatic")
-module jimfs.junit.jupiter {
-  requires transitive com.google.common.jimfs;
-  requires org.junit.jupiter.api;
-
-  exports io.github.scordio.jimfs.junit.jupiter;
+open module io.github.scordio.jimfs.junit.jupiter.tests {
+  requires io.github.scordio.jimfs.junit.jupiter;
+  requires org.assertj.core;
+  requires org.junit.jupiter.params;
+  requires org.junit.platform.testkit;
 }
