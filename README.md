@@ -8,7 +8,7 @@ directories via the [Jimfs][] file system.
 
 ## Motivation
 
-Today, it is already possible to use Jimfs and JUnit Jupiter together to create in-memory temporary directories for
+Today it is already possible to use Jimfs and JUnit Jupiter together to create in-memory temporary directories for
 testing.
 However, it requires Jimfs in-memory file system handling hooked into JUnit Jupiter test lifecycle callbacks,
 a boilerplate that users must implement on their own.
