@@ -4,7 +4,7 @@
 
   <groupId>io.github.scordio</groupId>
   <artifactId>jimfs-junit-jupiter</artifactId>
-  <version>0.3.0</version>
+  <version>0.4.0-SNAPSHOT</version>
 
   <name>Jimfs JUnit Jupiter</name>
   <description>JUnit Jupiter `@TempDir` extension based on the in-memory file system Jimfs</description>
