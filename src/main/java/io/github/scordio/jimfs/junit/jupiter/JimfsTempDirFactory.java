@@ -55,6 +55,7 @@ import org.junit.jupiter.api.io.TempDirFactory;
  * @see Jimfs#newFileSystem(com.google.common.jimfs.Configuration)
  * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
  */
+@SuppressWarnings("exports")
 public final class JimfsTempDirFactory implements TempDirFactory {
 
   private static final String DEFAULT_PREFIX = "junit-";

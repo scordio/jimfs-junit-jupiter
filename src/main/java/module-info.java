@@ -18,7 +18,7 @@
  * JUnit Jupiter {@link org.junit.jupiter.api.io.TempDir} extension based on {@link
  * com.google.common.jimfs.Jimfs}.
  */
-@SuppressWarnings("requires-transitive-automatic")
+@SuppressWarnings({"requires-automatic", "requires-transitive-automatic"})
 module io.github.scordio.jimfs.junit.jupiter {
   requires transitive com.google.common.jimfs;
   requires org.junit.jupiter.api;

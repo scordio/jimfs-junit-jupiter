@@ -38,6 +38,7 @@ import org.junit.jupiter.api.io.TempDir;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @TempDir(factory = JimfsTempDirFactory.class)
+@SuppressWarnings("exports")
 public @interface JimfsTempDir {
 
   /**
