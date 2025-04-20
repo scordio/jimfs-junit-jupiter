@@ -61,6 +61,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class OsXTestCase {
 
         @Test
@@ -78,6 +79,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class UnixTestCase {
 
         @Test
@@ -95,6 +97,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class WindowsTestCase {
 
         @Test
@@ -116,6 +119,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class OsXTestCase {
 
         @Test
@@ -132,6 +136,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class UnixTestCase {
 
         @Test
@@ -148,6 +153,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class WindowsTestCase {
 
         @Test
@@ -167,6 +173,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class TestCase {
 
         @Test
@@ -186,6 +193,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class TestCase {
 
         @Test
@@ -205,6 +213,7 @@ class JimfsTempDirTests {
             .assertStatistics(stats -> stats.started(1).succeeded(1));
       }
 
+      @SuppressWarnings("JUnitMalformedDeclaration")
       static class TestCase {
 
         @Test
@@ -256,6 +265,7 @@ class JimfsTempDirTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class OsXTestCase {
 
       @Test
@@ -293,6 +303,7 @@ class JimfsTempDirTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class UnixTestCase {
 
       @Test
@@ -330,6 +341,7 @@ class JimfsTempDirTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class WindowsTestCase {
 
       @Test

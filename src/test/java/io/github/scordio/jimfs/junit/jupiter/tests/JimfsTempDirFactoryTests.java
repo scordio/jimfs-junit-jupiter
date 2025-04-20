@@ -54,6 +54,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class OsXTestCase {
 
       @Test
@@ -70,6 +71,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class UnixTestCase {
 
       @Test
@@ -86,6 +88,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class WindowsTestCase {
 
       @Test
@@ -116,6 +119,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class OsXTestCase {
 
       @Test
@@ -132,6 +136,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class UnixTestCase {
 
       @Test
@@ -148,6 +153,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class WindowsTestCase {
 
       @Test
@@ -201,6 +207,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class OsXTestCase {
 
       @Test
@@ -237,6 +244,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class UnixTestCase {
 
       @Test
@@ -273,6 +281,7 @@ class JimfsTempDirFactoryTests {
           .assertStatistics(stats -> stats.started(1).succeeded(1));
     }
 
+    @SuppressWarnings("JUnitMalformedDeclaration")
     static class WindowsTestCase {
 
       @Test
