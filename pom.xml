@@ -149,7 +149,9 @@
         <version>2.44.4</version>
         <configuration>
           <java>
-            <googleJavaFormat/>
+            <googleJavaFormat>
+              <version>1.27.0</version> <!-- https://github.com/diffplug/spotless/issues/2468 -->
+            </googleJavaFormat>
             <includes>
               <include>src/main/java/**/*.java</include>
               <include>src/main/java9/**/*.java</include>
