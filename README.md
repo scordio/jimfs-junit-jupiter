@@ -8,27 +8,25 @@ directories via the [Jimfs][] file system.
 
 ## Motivation
 
-Today it is already possible to use Jimfs and JUnit Jupiter together to create in-memory temporary directories for
-testing.
-However, it requires Jimfs in-memory file system handling hooked into JUnit Jupiter test lifecycle callbacks,
-a boilerplate that users must implement on their own.
+It is currently possible to use Jimfs and JUnit Jupiter together to create in-memory temporary directories for testing.
+However, this requires Jimfs in-memory file system handling to be integrated with JUnit Jupiter test lifecycle callbacks,
+boilerplate code that users must implement themselves.
 
 Starting from version 5.10, JUnit Jupiter offers a
 [`TempDirFactory` SPI](https://junit.org/junit5/docs/5.10.0/user-guide/#writing-tests-built-in-extensions-TempDirectory)
 for customizing how temporary directories are created via the `@TempDir` annotation.
-The SPI allows libraries like Jimfs to provide their implementation.
+The SPI allows libraries like Jimfs to provide their own implementations.
 
 First-party support was requested in [google/jimfs#258](https://github.com/google/jimfs/issues/258).
 However, Google has not yet started using JUnit Jupiter, and such first-party support may only be provided when
 Google does so.
 
-Because of that, this extension was created to aid all the users who would like a smooth integration between Jimfs
-and JUnit Jupiter.
+This extension was created to provide users with a smooth integration between Jimfs and JUnit Jupiter.
 This project will likely be discontinued if Google ever offers first-party support for this integration.
 
 ## Compatibility
 
-Jimfs JUnit Jupiter is based on JUnit Jupiter 5, thus requiring at least Java 8.
+Jimfs JUnit Jupiter is based on JUnit Jupiter 5 and requires Java 8 or higher.
 
 Compatibility is guaranteed only with the JUnit Jupiter versions from
 [5.10.0](https://junit.org/junit5/docs/5.10.0/release-notes/index.html)
@@ -150,8 +148,8 @@ system and `File` instances can only be associated with the default file system.
 
 ## Improvements
 
-Compared to the configuration options that Jimfs provides, Jimfs JUnit Jupiter exposes a much smaller surface to keep
-its usage simple.
+Compared to the configuration options that Jimfs provides, Jimfs JUnit Jupiter offers a simplified interface to keep
+its usage straightforward.
 
 In case something is missing for your use case, please [raise an issue](../../issues/new)!
 
