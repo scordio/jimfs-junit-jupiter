@@ -54,7 +54,7 @@ to the
 testImplementation("io.github.scordio:jimfs-junit-jupiter:${jimfsJunitJupiterVersion}")
 ```
 
-### JimfsTempDirFactory
+## JimfsTempDirFactory
 
 The simplest usage is to set the
 [`factory`](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html#factory())
@@ -70,7 +70,7 @@ void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
 `tempDir` is resolved into an in-memory temporary directory based on Jimfs, appropriately configured for the current
 platform.
 
-### @JimfsTempDir
+## @JimfsTempDir
 
 `@JimfsTempDir`, a `@TempDir`
 [composed annotation](https://junit.org/junit5/docs/current/user-guide/#writing-tests-meta-annotations),
@@ -105,12 +105,12 @@ void test(@JimfsTempDir(WINDOWS) Path tempDir) {
 }
 ```
 
-### Configuration Parameters
+## Configuration Parameters
 
 Jimfs JUnit Jupiter supports JUnit
 [configuration parameters](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params).
 
-#### Default `@TempDir` Factory
+### Default `@TempDir` Factory
 
 The `junit.jupiter.tempdir.factory.default` configuration parameter sets the default factory to use, expecting its
 fully qualified class name.
@@ -124,7 +124,7 @@ junit.jupiter.tempdir.factory.default=io.github.scordio.jimfs.junit.jupiter.Jimf
 The factory will be used for all `@TempDir` annotations unless the `factory` attribute of the annotation
 specifies a different type.
 
-#### Default Jimfs Configuration
+### Default Jimfs Configuration
 
 The `jimfs.junit.jupiter.tempdir.configuration.default` configuration parameter sets the default Jimfs configuration
 to use, expecting one of the following (case-insensitive):
@@ -143,7 +143,7 @@ jimfs.junit.jupiter.tempdir.configuration.default=windows
 All Jimfs-based temporary directories will be configured accordingly unless `@JimfsTempDir` is used and
 its `value` attribute is set.
 
-### Limitations
+## Limitations
 
 Jimfs JUnit Jupiter only supports annotated fields or parameters of type `Path`, as Jimfs is a non-default file
 system and `File` instances can only be associated with the default file system.
