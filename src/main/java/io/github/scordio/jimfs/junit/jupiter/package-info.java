@@ -18,4 +18,7 @@
  * JUnit Jupiter {@link org.junit.jupiter.api.io.TempDir} extension based on {@link
  * com.google.common.jimfs.Jimfs}.
  */
+@NullMarked
 package io.github.scordio.jimfs.junit.jupiter;
+
+import org.jspecify.annotations.NullMarked;
