@@ -23,7 +23,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -59,8 +58,6 @@ import org.junit.jupiter.api.io.TempDirFactory;
 public final class JimfsTempDirFactory implements TempDirFactory {
 
   private static final String DEFAULT_PREFIX = "junit-";
-  private static final Function<String, JimfsTempDir.Configuration> CONFIGURATION_TRANSFORMER =
-      value -> JimfsTempDir.Configuration.valueOf(value.trim().toUpperCase(Locale.ROOT));
 
   private FileSystem fileSystem;
 
@@ -84,7 +81,7 @@ public final class JimfsTempDirFactory implements TempDirFactory {
                     extensionContext
                         .getConfigurationParameter(
                             JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
-                            CONFIGURATION_TRANSFORMER)
+                            JimfsTempDirFactory::transform)
                         .filter(JimfsTempDirFactory::isNotDefaultConfiguration)
                         .map(JimfsTempDir.Configuration::getConfiguration)
                         .orElse(Configuration::forCurrentPlatform));
@@ -92,6 +89,10 @@ public final class JimfsTempDirFactory implements TempDirFactory {
     fileSystem = Jimfs.newFileSystem(configuration.get());
     Path root = fileSystem.getRootDirectories().iterator().next();
     return Files.createTempDirectory(root, DEFAULT_PREFIX);
+  }
+
+  private static JimfsTempDir.Configuration transform(String value) {
+    return JimfsTempDir.Configuration.valueOf(value.trim().toUpperCase(Locale.ROOT));
   }
 
   private static boolean isNotDefaultConfiguration(JimfsTempDir.Configuration value) {
