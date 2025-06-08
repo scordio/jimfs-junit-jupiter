@@ -58,6 +58,11 @@
       <artifactId>jimfs</artifactId>
       <version>${jimfs.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+      <version>1.0.0</version>
+    </dependency>
     <!-- Provided -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -107,6 +112,7 @@
                 -Xplugin:ErrorProne
                 -Xep:ImmutableEnumChecker:OFF
                 -Xep:SameNameButDifferent:OFF
+                -XepOpt:NullAway:OnlyNullMarked
               </compilerArg>
             </compilerArgs>
             <annotationProcessorPaths>
@@ -114,6 +120,11 @@
                 <groupId>com.google.errorprone</groupId>
                 <artifactId>error_prone_core</artifactId>
                 <version>2.38.0</version>
+              </path>
+              <path>
+                <groupId>com.uber.nullaway</groupId>
+                <artifactId>nullaway</artifactId>
+                <version>0.12.7</version>
               </path>
             </annotationProcessorPaths>
             <failOnWarning>true</failOnWarning>
@@ -129,9 +140,11 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.11.2</version>
           <configuration>
+            <additionalOptions>--link-modularity-mismatch=info</additionalOptions> <!-- https://github.com/jspecify/jspecify/issues/712 -->
             <failOnWarnings>true</failOnWarnings>
             <links>
               <link>https://javadoc.io/static/com.google.jimfs/jimfs/${jimfs.version}/</link>
+              <link>https://jspecify.dev/docs/api/</link>
               <link>https://junit.org/junit5/docs/${junit-jupiter.version}/api/</link>
             </links>
             <release>9</release>
@@ -229,6 +242,7 @@
               <excludes>
                 <exclude>module-info.java</exclude>
               </excludes>
+              <failOnWarning>false</failOnWarning> <!-- https://github.com/jspecify/jspecify/issues/302 -->
             </configuration>
           </execution>
         </executions>

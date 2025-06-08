@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Supplier;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.io.TempDirFactory;
@@ -59,7 +60,7 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 
   private static final String DEFAULT_PREFIX = "junit-";
 
-  private FileSystem fileSystem;
+  private @Nullable FileSystem fileSystem;
 
   /** Create a new {@code JimfsTempDirFactory} instance. */
   public JimfsTempDirFactory() {}
@@ -102,6 +103,9 @@ public final class JimfsTempDirFactory implements TempDirFactory {
   /** {@inheritDoc} */
   @Override
   public void close() throws IOException {
-    fileSystem.close();
+    if (fileSystem != null) {
+      fileSystem.close();
+      fileSystem = null;
+    }
   }
 }
