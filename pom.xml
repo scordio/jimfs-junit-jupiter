@@ -140,9 +140,11 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>3.11.2</version>
           <configuration>
+            <additionalOptions>--link-modularity-mismatch=info</additionalOptions> <!-- https://github.com/jspecify/jspecify/issues/712 -->
             <failOnWarnings>true</failOnWarnings>
             <links>
               <link>https://javadoc.io/static/com.google.jimfs/jimfs/${jimfs.version}/</link>
+              <link>https://jspecify.dev/docs/api/</link>
               <link>https://junit.org/junit5/docs/${junit-jupiter.version}/api/</link>
             </links>
             <release>9</release>
