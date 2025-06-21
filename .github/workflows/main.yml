@@ -33,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [24, 25]
+        java: [24, 25, 26]
     runs-on: ubuntu-latest
 
     steps:
