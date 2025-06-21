@@ -145,7 +145,7 @@
             <links>
               <link>https://javadoc.io/static/com.google.jimfs/jimfs/${jimfs.version}/</link>
               <link>https://jspecify.dev/docs/api/</link>
-              <link>https://junit.org/junit5/docs/${junit-jupiter.version}/api/</link>
+              <link>https://docs.junit.org/${junit-jupiter.version}/api/</link>
             </links>
             <release>9</release>
           </configuration>
