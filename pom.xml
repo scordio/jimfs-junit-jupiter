@@ -43,6 +43,12 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>4.0.0-M1</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
         <version>${junit-jupiter.version}</version>
@@ -73,7 +79,6 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.27.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
