@@ -1,7 +1,7 @@
 # Configuration Parameters
 
 Jimfs JUnit Jupiter supports JUnit
-[configuration parameters](https://junit.org/junit5/docs/current/user-guide/#running-tests-config-params).
+[configuration parameters](https://docs.junit.org/current/user-guide/#running-tests-config-params).
 
 ## Default `@TempDir` Factory
 

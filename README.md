@@ -17,7 +17,7 @@ It is currently possible to use Jimfs and JUnit Jupiter together to create in-me
 However, this requires Jimfs in-memory file system handling to be integrated with JUnit Jupiter test lifecycle
 callbacks, boilerplate code that users must implement themselves.
 
-Starting from version 5.10, JUnit Jupiter offers a
+JUnit Jupiter offers a
 [`TempDirFactory` SPI](https://junit.org/junit5/docs/5.10.0/user-guide/#writing-tests-built-in-extensions-TempDirectory)
 for customizing how temporary directories are created via the `@TempDir` annotation.
 The SPI allows libraries like Jimfs to provide their own implementations.

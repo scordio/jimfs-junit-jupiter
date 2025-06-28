@@ -3,7 +3,7 @@
 ## `@TempDir` with `JimfsTempDirFactory`
 
 The simplest way to use Jimfs JUnit Jupiter is to set the
-[`factory`](https://junit.org/junit5/docs/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html#factory())
+[`factory`](https://docs.junit.org/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html#factory())
 attribute of `@TempDir` to `JimfsTempDirFactory`:
 
 ```java
