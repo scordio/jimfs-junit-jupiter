@@ -12,7 +12,7 @@ It is currently possible to use Jimfs and JUnit Jupiter together to create in-me
 However, this requires Jimfs in-memory file system handling to be integrated with JUnit Jupiter test lifecycle callbacks,
 boilerplate code that users must implement themselves.
 
-Starting from version 5.10, JUnit Jupiter offers a
+JUnit Jupiter offers a
 [`TempDirFactory` SPI](https://junit.org/junit5/docs/5.10.0/user-guide/#writing-tests-built-in-extensions-TempDirectory)
 for customizing how temporary directories are created via the `@TempDir` annotation.
 The SPI allows libraries like Jimfs to provide their own implementations.
@@ -24,10 +24,10 @@ this project will likely be discontinued if Google ever offers first-party suppo
 
 ## Compatibility
 
-Jimfs JUnit Jupiter is based on JUnit Jupiter 5 and requires Java 8 or higher.
+Jimfs JUnit Jupiter is based on JUnit Jupiter 6 and requires Java 17 or higher.
 
 Compatibility is guaranteed only with the JUnit Jupiter versions from
-[5.10.0](https://junit.org/junit5/docs/5.10.0/release-notes/index.html)
+[6.0.0](https://junit.org/junit5/docs/6.0.0/release-notes/index.html)
 to the
 [latest](https://junit.org/junit5/docs/current/release-notes/index.html).
 
