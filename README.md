@@ -26,11 +26,6 @@ this project will likely be discontinued if Google ever offers first-party suppo
 
 Jimfs JUnit Jupiter is based on JUnit Jupiter 6 and requires Java 17 or higher.
 
-Compatibility is guaranteed only with the JUnit Jupiter versions from
-[6.0.0](https://junit.org/junit5/docs/6.0.0/release-notes/index.html)
-to the
-[latest](https://junit.org/junit5/docs/current/release-notes/index.html).
-
 ## Getting Started
 
 ### Maven
