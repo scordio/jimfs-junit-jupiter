@@ -191,6 +191,7 @@
         </configuration>
         <executions>
           <execution>
+            <phase>validate</phase>
             <goals>
               <goal>check</goal>
             </goals>
@@ -217,6 +218,7 @@
         </configuration>
         <executions>
           <execution>
+            <phase>validate</phase>
             <goals>
               <goal>check</goal>
             </goals>
