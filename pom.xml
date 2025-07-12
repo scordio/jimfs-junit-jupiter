@@ -180,7 +180,7 @@
         <configuration>
           <java>
             <googleJavaFormat>
-              <version>1.27.0</version> <!-- https://github.com/diffplug/spotless/issues/2468 -->
+              <version>1.28.0</version> <!-- https://github.com/diffplug/spotless/issues/2468 -->
             </googleJavaFormat>
             <includes>
               <include>src/main/java/**/*.java</include>
