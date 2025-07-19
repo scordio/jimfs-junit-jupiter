@@ -52,9 +52,7 @@ platform.
 
 ## @JimfsTempDir
 
-`@JimfsTempDir`, a `@TempDir`
-[composed annotation](https://junit.org/junit5/docs/current/user-guide/#writing-tests-meta-annotations),
-can be used as a drop-in replacement for `@TempDir(factory = JimfsTempDirFactory.class)`:
+`@JimfsTempDir` can be used as a drop-in replacement for `@TempDir(factory = JimfsTempDirFactory.class)`:
 
 ```java
 @Test
