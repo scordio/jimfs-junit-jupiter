@@ -153,4 +153,4 @@ Jimfs JUnit Jupiter is released under version 2.0 of the [Apache License][].
 
 [Apache License]: https://www.apache.org/licenses/LICENSE-2.0
 [Jimfs]: https://github.com/google/jimfs
-[JUnit Jupiter]: https://github.com/junit-team/junit5
+[JUnit Jupiter]: https://github.com/junit-team/junit-framework
