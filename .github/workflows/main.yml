@@ -84,3 +84,24 @@ jobs:
           cache: maven
       - name: Generate Javadoc
         run: ./mvnw $MAVEN_ARGS compile javadoc:javadoc
+
+  publish-user-guide:
+
+    name: Publish User Guide
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+          cache: 'pip'
+      - name: Install Material for MkDocs
+        run: pip install mkdocs-material
+      - name: Publish to GitHub Pages
+        run: |
+          git config user.name '${{ github.actor }}'
+          git config user.email '${{ github.actor }}@users.noreply.github.com'
+          mkdocs gh-deploy
