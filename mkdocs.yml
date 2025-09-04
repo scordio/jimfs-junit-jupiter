@@ -4,6 +4,8 @@ site_url: https://scordio.github.io/jimfs-junit-jupiter
 site_author: Stefano Cordio
 site_description: JUnit Jupiter `@TempDir` extension based on the in-memory file system Jimfs
 
+site_dir: target/mkdocs
+
 # Repository
 repo_url: https://github.com/scordio/jimfs-junit-jupiter
 
