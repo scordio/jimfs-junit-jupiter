@@ -106,4 +106,4 @@ jobs:
         run: |
           git config user.name '${{ github.actor }}'
           git config user.email '${{ github.actor }}@users.noreply.github.com'
-          mkdocs gh-deploy
+          mkdocs gh-deploy --force
