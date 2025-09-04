@@ -38,5 +38,5 @@ running:
 jimfs.junit.jupiter.tempdir.configuration.default=windows
 ```
 
-All Jimfs-based temporary directories will be configured accordingly unless `@JimfsTempDir` is used with its `value`
+All Jimfs-based temporary directories will be configured accordingly unless [`@JimfsTempDir`](usage.md#jimfstempdir) is used with its `value`
 attribute set.
