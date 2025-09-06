@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 open module io.github.scordio.jimfs.junit.jupiter.tests {
-  requires io.github.scordio.jimfs.junit.jupiter;
-  requires org.assertj.core;
-  requires org.junit.jupiter.params;
-  requires org.junit.platform.testkit;
+	requires io.github.scordio.jimfs.junit.jupiter;
+	requires org.assertj.core;
+	requires org.junit.jupiter.params;
+	requires org.junit.platform.testkit;
 }
