@@ -15,30 +15,31 @@
  */
 package io.github.scordio.jimfs.junit.jupiter.tests;
 
-import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
-import static org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder.request;
-
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
 import org.junit.platform.testkit.engine.EngineExecutionResults;
 import org.junit.platform.testkit.engine.EngineTestKit;
 
+import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
+import static org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder.request;
+
 class JupiterEngineTestKit {
 
-  static EngineExecutionResults executeTestsForClass(Class<?> testClass) {
-    return executeTests(selectClass(testClass));
-  }
+	static EngineExecutionResults executeTestsForClass(Class<?> testClass) {
+		return executeTests(selectClass(testClass));
+	}
 
-  private static EngineExecutionResults executeTests(DiscoverySelector... selectors) {
-    return executeTests(request().selectors(selectors));
-  }
+	private static EngineExecutionResults executeTests(DiscoverySelector... selectors) {
+		return executeTests(request().selectors(selectors));
+	}
 
-  private static EngineExecutionResults executeTests(LauncherDiscoveryRequestBuilder builder) {
-    return executeTests(builder.build());
-  }
+	private static EngineExecutionResults executeTests(LauncherDiscoveryRequestBuilder builder) {
+		return executeTests(builder.build());
+	}
 
-  static EngineExecutionResults executeTests(LauncherDiscoveryRequest request) {
-    return EngineTestKit.execute("junit-jupiter", request);
-  }
+	static EngineExecutionResults executeTests(LauncherDiscoveryRequest request) {
+		return EngineTestKit.execute("junit-jupiter", request);
+	}
+
 }

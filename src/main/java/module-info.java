@@ -15,14 +15,14 @@
  */
 
 /**
- * JUnit Jupiter {@link org.junit.jupiter.api.io.TempDir} extension based on {@link
- * com.google.common.jimfs.Jimfs}.
+ * JUnit Jupiter {@link org.junit.jupiter.api.io.TempDir} extension based on
+ * {@link com.google.common.jimfs.Jimfs}.
  */
 @SuppressWarnings({"requires-automatic", "requires-transitive-automatic"})
 module io.github.scordio.jimfs.junit.jupiter {
-  requires static transitive org.jspecify;
-  requires transitive com.google.common.jimfs;
-  requires org.junit.jupiter.api;
+	requires static transitive org.jspecify;
+	requires transitive com.google.common.jimfs;
+	requires org.junit.jupiter.api;
 
-  exports io.github.scordio.jimfs.junit.jupiter;
+	exports io.github.scordio.jimfs.junit.jupiter;
 }

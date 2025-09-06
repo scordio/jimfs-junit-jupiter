@@ -15,40 +15,35 @@
  */
 package io.github.scordio.jimfs.junit.jupiter.tests;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.nio.file.Path;
 import java.util.function.Consumer;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class Requirements {
 
-  static Consumer<Path> osXFileSystem() {
-    return tempDir -> {
-      assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
-      assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("/");
-      assertThat(tempDir.getFileSystem().getRootDirectories())
-          .map(Path::toString)
-          .containsExactly("/");
-    };
-  }
+	static Consumer<Path> osXFileSystem() {
+		return tempDir -> {
+			assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
+			assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("/");
+			assertThat(tempDir.getFileSystem().getRootDirectories()).map(Path::toString).containsExactly("/");
+		};
+	}
 
-  static Consumer<Path> unixFileSystem() {
-    return tempDir -> {
-      assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
-      assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("/");
-      assertThat(tempDir.getFileSystem().getRootDirectories())
-          .map(Path::toString)
-          .containsExactly("/");
-    };
-  }
+	static Consumer<Path> unixFileSystem() {
+		return tempDir -> {
+			assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
+			assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("/");
+			assertThat(tempDir.getFileSystem().getRootDirectories()).map(Path::toString).containsExactly("/");
+		};
+	}
 
-  static Consumer<Path> windowsFileSystem() {
-    return tempDir -> {
-      assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
-      assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("\\");
-      assertThat(tempDir.getFileSystem().getRootDirectories())
-          .map(Path::toString)
-          .containsExactly("C:\\");
-    };
-  }
+	static Consumer<Path> windowsFileSystem() {
+		return tempDir -> {
+			assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
+			assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("\\");
+			assertThat(tempDir.getFileSystem().getRootDirectories()).map(Path::toString).containsExactly("C:\\");
+		};
+	}
+
 }

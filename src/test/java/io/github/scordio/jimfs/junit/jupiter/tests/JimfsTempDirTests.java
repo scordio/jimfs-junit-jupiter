@@ -15,6 +15,19 @@
  */
 package io.github.scordio.jimfs.junit.jupiter.tests;
 
+import io.github.scordio.jimfs.junit.jupiter.JimfsTempDir;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.platform.testkit.engine.EngineExecutionResults;
+
+import java.nio.file.Path;
+
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.DEFAULT;
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.FOR_CURRENT_PLATFORM;
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.OS_X;
@@ -31,324 +44,307 @@ import static org.junit.jupiter.api.condition.OS.MAC;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
 import static org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder.request;
 
-import io.github.scordio.jimfs.junit.jupiter.JimfsTempDir;
-import java.nio.file.Path;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnOs;
-import org.junit.jupiter.api.condition.EnabledOnOs;
-import org.junit.jupiter.api.condition.OS;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.junit.platform.testkit.engine.EngineExecutionResults;
-
 @DisplayName("JimfsTempDir")
 class JimfsTempDirTests {
 
-  @Nested
-  @DisplayName("without configuration parameters")
-  class without_config_parameters {
+	@Nested
+	@DisplayName("without configuration parameters")
+	class without_config_parameters {
 
-    @Nested
-    class with_DEFAULT_configuration {
+		@Nested
+		class with_DEFAULT_configuration {
 
-      @EnabledOnOs(MAC)
-      @Test
-      void should_apply_OS_X_configuration_on_Mac_platform() {
-        executeTestsForClass(OsXTestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+			@EnabledOnOs(MAC)
+			@Test
+			void should_apply_OS_X_configuration_on_Mac_platform() {
+				executeTestsForClass(OsXTestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class OsXTestCase {
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class OsXTestCase {
 
-        @Test
-        void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
-          assertThat(tempDir1).satisfies(osXFileSystem());
-          assertThat(tempDir2).satisfies(osXFileSystem());
-        }
-      }
+				@Test
+				void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
+					assertThat(tempDir1).satisfies(osXFileSystem());
+					assertThat(tempDir2).satisfies(osXFileSystem());
+				}
 
-      @DisabledOnOs({MAC, OS.WINDOWS})
-      @Test
-      void should_apply_UNIX_configuration_on_Unix_platform() {
-        executeTestsForClass(UnixTestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+			}
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class UnixTestCase {
+			@DisabledOnOs({ MAC, OS.WINDOWS })
+			@Test
+			void should_apply_UNIX_configuration_on_Unix_platform() {
+				executeTestsForClass(UnixTestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-        @Test
-        void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
-          assertThat(tempDir1).satisfies(unixFileSystem());
-          assertThat(tempDir2).satisfies(unixFileSystem());
-        }
-      }
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class UnixTestCase {
 
-      @EnabledOnOs(OS.WINDOWS)
-      @Test
-      void should_apply_WINDOWS_configuration_on_Windows_platform() {
-        executeTestsForClass(WindowsTestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+				@Test
+				void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
+					assertThat(tempDir1).satisfies(unixFileSystem());
+					assertThat(tempDir2).satisfies(unixFileSystem());
+				}
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class WindowsTestCase {
+			}
 
-        @Test
-        void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
-          assertThat(tempDir1).satisfies(windowsFileSystem());
-          assertThat(tempDir2).satisfies(windowsFileSystem());
-        }
-      }
-    }
+			@EnabledOnOs(OS.WINDOWS)
+			@Test
+			void should_apply_WINDOWS_configuration_on_Windows_platform() {
+				executeTestsForClass(WindowsTestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-    @Nested
-    class with_FOR_CURRENT_PLATFORM_configuration {
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class WindowsTestCase {
 
-      @EnabledOnOs(MAC)
-      @Test
-      void should_apply_OS_X_configuration_on_Mac_platform() {
-        executeTestsForClass(OsXTestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+				@Test
+				void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
+					assertThat(tempDir1).satisfies(windowsFileSystem());
+					assertThat(tempDir2).satisfies(windowsFileSystem());
+				}
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class OsXTestCase {
+			}
 
-        @Test
-        void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
-          assertThat(tempDir).satisfies(osXFileSystem());
-        }
-      }
+		}
 
-      @DisabledOnOs({MAC, OS.WINDOWS})
-      @Test
-      void should_apply_UNIX_configuration_on_Unix_platform() {
-        executeTestsForClass(UnixTestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+		@Nested
+		class with_FOR_CURRENT_PLATFORM_configuration {
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class UnixTestCase {
+			@EnabledOnOs(MAC)
+			@Test
+			void should_apply_OS_X_configuration_on_Mac_platform() {
+				executeTestsForClass(OsXTestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-        @Test
-        void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
-          assertThat(tempDir).satisfies(unixFileSystem());
-        }
-      }
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class OsXTestCase {
 
-      @EnabledOnOs(OS.WINDOWS)
-      @Test
-      void should_apply_WINDOWS_configuration_on_Windows_platform() {
-        executeTestsForClass(WindowsTestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+				@Test
+				void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
+					assertThat(tempDir).satisfies(osXFileSystem());
+				}
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class WindowsTestCase {
+			}
 
-        @Test
-        void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
-          assertThat(tempDir).satisfies(windowsFileSystem());
-        }
-      }
-    }
+			@DisabledOnOs({ MAC, OS.WINDOWS })
+			@Test
+			void should_apply_UNIX_configuration_on_Unix_platform() {
+				executeTestsForClass(UnixTestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-    @Nested
-    class with_OS_X_configuration {
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class UnixTestCase {
 
-      @Test
-      void should_apply_OS_X_configuration() {
-        executeTestsForClass(TestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+				@Test
+				void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
+					assertThat(tempDir).satisfies(unixFileSystem());
+				}
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class TestCase {
+			}
 
-        @Test
-        void test(@JimfsTempDir(OS_X) Path tempDir) {
-          assertThat(tempDir).satisfies(osXFileSystem());
-        }
-      }
-    }
+			@EnabledOnOs(OS.WINDOWS)
+			@Test
+			void should_apply_WINDOWS_configuration_on_Windows_platform() {
+				executeTestsForClass(WindowsTestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-    @Nested
-    class with_UNIX_configuration {
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class WindowsTestCase {
 
-      @Test
-      void should_apply_UNIX_configuration() {
-        executeTestsForClass(TestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+				@Test
+				void test(@JimfsTempDir(FOR_CURRENT_PLATFORM) Path tempDir) {
+					assertThat(tempDir).satisfies(windowsFileSystem());
+				}
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class TestCase {
+			}
 
-        @Test
-        void test(@JimfsTempDir(UNIX) Path tempDir) {
-          assertThat(tempDir).satisfies(unixFileSystem());
-        }
-      }
-    }
+		}
 
-    @Nested
-    class with_WINDOWS_configuration {
+		@Nested
+		class with_OS_X_configuration {
 
-      @Test
-      void should_apply_WINDOWS_configuration_with_WINDOWS_value() {
-        executeTestsForClass(TestCase.class)
-            .testEvents()
-            .assertStatistics(stats -> stats.started(1).succeeded(1));
-      }
+			@Test
+			void should_apply_OS_X_configuration() {
+				executeTestsForClass(TestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-      @SuppressWarnings("JUnitMalformedDeclaration")
-      static class TestCase {
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class TestCase {
 
-        @Test
-        void test(@JimfsTempDir(WINDOWS) Path tempDir) {
-          assertThat(tempDir).satisfies(windowsFileSystem());
-        }
-      }
-    }
-  }
+				@Test
+				void test(@JimfsTempDir(OS_X) Path tempDir) {
+					assertThat(tempDir).satisfies(osXFileSystem());
+				}
 
-  @Nested
-  @DisplayName("with Jimfs default configuration (configuration parameter)")
-  class with_Jimfs_default_configuration_config_parameter {
+			}
 
-    private static EngineExecutionResults executeTestsForClass(
-        Class<?> testClass, String configuration) {
-      return executeTests(
-          request()
-              .selectors(selectClass(testClass))
-              .configurationParameter(DEFAULT_CONFIGURATION_PARAMETER_NAME, configuration)
-              .build());
-    }
+		}
 
-    @EnabledOnOs(MAC)
-    @ParameterizedTest
-    @ValueSource(strings = {"DEFAULT", "default"})
-    void should_apply_OS_X_configuration_with_DEFAULT_parameter_on_Mac_platform(
-        String configuration) {
-      executeTestsForClass(OsXTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+		@Nested
+		class with_UNIX_configuration {
 
-    @EnabledOnOs(MAC)
-    @ParameterizedTest
-    @ValueSource(strings = {"FOR_CURRENT_PLATFORM", "for_current_platform"})
-    void should_apply_OS_X_configuration_with_FOR_CURRENT_PLATFORM_parameter_on_Mac_platform(
-        String configuration) {
-      executeTestsForClass(OsXTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+			@Test
+			void should_apply_UNIX_configuration() {
+				executeTestsForClass(TestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-    @ParameterizedTest
-    @ValueSource(strings = {"OS_X", "os_x"})
-    void should_apply_OS_X_configuration_with_OS_X_parameter(String configuration) {
-      executeTestsForClass(OsXTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class TestCase {
 
-    @SuppressWarnings("JUnitMalformedDeclaration")
-    static class OsXTestCase {
+				@Test
+				void test(@JimfsTempDir(UNIX) Path tempDir) {
+					assertThat(tempDir).satisfies(unixFileSystem());
+				}
 
-      @Test
-      void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
-        assertThat(tempDir1).satisfies(osXFileSystem());
-        assertThat(tempDir2).satisfies(osXFileSystem());
-      }
-    }
+			}
 
-    @DisabledOnOs({MAC, OS.WINDOWS})
-    @ParameterizedTest
-    @ValueSource(strings = {"DEFAULT", "default"})
-    void should_apply_UNIX_configuration_with_DEFAULT_parameter_on_Unix_platform(
-        String configuration) {
-      executeTestsForClass(UnixTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+		}
 
-    @DisabledOnOs({MAC, OS.WINDOWS})
-    @ParameterizedTest
-    @ValueSource(strings = {"FOR_CURRENT_PLATFORM", "for_current_platform"})
-    void should_apply_UNIX_configuration_with_FOR_CURRENT_PLATFORM_parameter_on_Unix_platform(
-        String configuration) {
-      executeTestsForClass(UnixTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+		@Nested
+		class with_WINDOWS_configuration {
 
-    @ParameterizedTest
-    @ValueSource(strings = {"UNIX", "unix"})
-    void should_apply_UNIX_configuration_with_UNIX_parameter(String configuration) {
-      executeTestsForClass(UnixTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+			@Test
+			void should_apply_WINDOWS_configuration_with_WINDOWS_value() {
+				executeTestsForClass(TestCase.class).testEvents()
+					.assertStatistics(stats -> stats.started(1).succeeded(1));
+			}
 
-    @SuppressWarnings("JUnitMalformedDeclaration")
-    static class UnixTestCase {
+			@SuppressWarnings("JUnitMalformedDeclaration")
+			static class TestCase {
 
-      @Test
-      void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
-        assertThat(tempDir1).satisfies(unixFileSystem());
-        assertThat(tempDir2).satisfies(unixFileSystem());
-      }
-    }
+				@Test
+				void test(@JimfsTempDir(WINDOWS) Path tempDir) {
+					assertThat(tempDir).satisfies(windowsFileSystem());
+				}
 
-    @EnabledOnOs(OS.WINDOWS)
-    @ParameterizedTest
-    @ValueSource(strings = {"DEFAULT", "default"})
-    void should_apply_WINDOWS_configuration_with_DEFAULT_parameter_on_Windows_platform(
-        String configuration) {
-      executeTestsForClass(WindowsTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+			}
 
-    @EnabledOnOs(OS.WINDOWS)
-    @ParameterizedTest
-    @ValueSource(strings = {"FOR_CURRENT_PLATFORM", "for_current_platform"})
-    void should_apply_WINDOWS_configuration_with_FOR_CURRENT_PLATFORM_parameter_on_Windows_platform(
-        String configuration) {
-      executeTestsForClass(WindowsTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+		}
 
-    @ParameterizedTest
-    @ValueSource(strings = {"WINDOWS", "windows"})
-    void should_apply_WINDOWS_configuration_with_WINDOWS_parameter(String configuration) {
-      executeTestsForClass(WindowsTestCase.class, configuration)
-          .testEvents()
-          .assertStatistics(stats -> stats.started(1).succeeded(1));
-    }
+	}
 
-    @SuppressWarnings("JUnitMalformedDeclaration")
-    static class WindowsTestCase {
+	@Nested
+	@DisplayName("with Jimfs default configuration (configuration parameter)")
+	class with_Jimfs_default_configuration_config_parameter {
 
-      @Test
-      void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
-        assertThat(tempDir1).satisfies(windowsFileSystem());
-        assertThat(tempDir2).satisfies(windowsFileSystem());
-      }
-    }
-  }
+		private static EngineExecutionResults executeTestsForClass(Class<?> testClass, String configuration) {
+			return executeTests(request().selectors(selectClass(testClass))
+				.configurationParameter(DEFAULT_CONFIGURATION_PARAMETER_NAME, configuration)
+				.build());
+		}
+
+		@EnabledOnOs(MAC)
+		@ParameterizedTest
+		@ValueSource(strings = { "DEFAULT", "default" })
+		void should_apply_OS_X_configuration_with_DEFAULT_parameter_on_Mac_platform(String configuration) {
+			executeTestsForClass(OsXTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@EnabledOnOs(MAC)
+		@ParameterizedTest
+		@ValueSource(strings = { "FOR_CURRENT_PLATFORM", "for_current_platform" })
+		void should_apply_OS_X_configuration_with_FOR_CURRENT_PLATFORM_parameter_on_Mac_platform(String configuration) {
+			executeTestsForClass(OsXTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@ParameterizedTest
+		@ValueSource(strings = { "OS_X", "os_x" })
+		void should_apply_OS_X_configuration_with_OS_X_parameter(String configuration) {
+			executeTestsForClass(OsXTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@SuppressWarnings("JUnitMalformedDeclaration")
+		static class OsXTestCase {
+
+			@Test
+			void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
+				assertThat(tempDir1).satisfies(osXFileSystem());
+				assertThat(tempDir2).satisfies(osXFileSystem());
+			}
+
+		}
+
+		@DisabledOnOs({ MAC, OS.WINDOWS })
+		@ParameterizedTest
+		@ValueSource(strings = { "DEFAULT", "default" })
+		void should_apply_UNIX_configuration_with_DEFAULT_parameter_on_Unix_platform(String configuration) {
+			executeTestsForClass(UnixTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@DisabledOnOs({ MAC, OS.WINDOWS })
+		@ParameterizedTest
+		@ValueSource(strings = { "FOR_CURRENT_PLATFORM", "for_current_platform" })
+		void should_apply_UNIX_configuration_with_FOR_CURRENT_PLATFORM_parameter_on_Unix_platform(
+				String configuration) {
+			executeTestsForClass(UnixTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@ParameterizedTest
+		@ValueSource(strings = { "UNIX", "unix" })
+		void should_apply_UNIX_configuration_with_UNIX_parameter(String configuration) {
+			executeTestsForClass(UnixTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@SuppressWarnings("JUnitMalformedDeclaration")
+		static class UnixTestCase {
+
+			@Test
+			void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
+				assertThat(tempDir1).satisfies(unixFileSystem());
+				assertThat(tempDir2).satisfies(unixFileSystem());
+			}
+
+		}
+
+		@EnabledOnOs(OS.WINDOWS)
+		@ParameterizedTest
+		@ValueSource(strings = { "DEFAULT", "default" })
+		void should_apply_WINDOWS_configuration_with_DEFAULT_parameter_on_Windows_platform(String configuration) {
+			executeTestsForClass(WindowsTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@EnabledOnOs(OS.WINDOWS)
+		@ParameterizedTest
+		@ValueSource(strings = { "FOR_CURRENT_PLATFORM", "for_current_platform" })
+		void should_apply_WINDOWS_configuration_with_FOR_CURRENT_PLATFORM_parameter_on_Windows_platform(
+				String configuration) {
+			executeTestsForClass(WindowsTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@ParameterizedTest
+		@ValueSource(strings = { "WINDOWS", "windows" })
+		void should_apply_WINDOWS_configuration_with_WINDOWS_parameter(String configuration) {
+			executeTestsForClass(WindowsTestCase.class, configuration).testEvents()
+				.assertStatistics(stats -> stats.started(1).succeeded(1));
+		}
+
+		@SuppressWarnings("JUnitMalformedDeclaration")
+		static class WindowsTestCase {
+
+			@Test
+			void test(@JimfsTempDir Path tempDir1, @JimfsTempDir(DEFAULT) Path tempDir2) {
+				assertThat(tempDir1).satisfies(windowsFileSystem());
+				assertThat(tempDir2).satisfies(windowsFileSystem());
+			}
+
+		}
+
+	}
+
 }
