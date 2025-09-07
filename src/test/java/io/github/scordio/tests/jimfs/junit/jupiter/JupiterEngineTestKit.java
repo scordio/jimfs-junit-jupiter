@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio.jimfs.junit.jupiter.tests;
+package io.github.scordio.tests.jimfs.junit.jupiter;
 
 import org.junit.platform.engine.DiscoverySelector;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;

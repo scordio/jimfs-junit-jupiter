@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-open module io.github.scordio.jimfs.junit.jupiter.tests {
+open module io.github.scordio.tests.jimfs.junit.jupiter {
 	requires io.github.scordio.jimfs.junit.jupiter;
 	requires org.assertj.core;
 	requires org.junit.jupiter.params;

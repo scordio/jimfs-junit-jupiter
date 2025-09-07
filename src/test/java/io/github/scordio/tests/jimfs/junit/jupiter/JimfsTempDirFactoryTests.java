@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.scordio.jimfs.junit.jupiter.tests;
+package io.github.scordio.tests.jimfs.junit.jupiter;
 
 import io.github.scordio.jimfs.junit.jupiter.JimfsTempDir;
 import io.github.scordio.jimfs.junit.jupiter.JimfsTempDirFactory;
@@ -30,11 +30,11 @@ import org.junit.platform.testkit.engine.EngineExecutionResults;
 
 import java.nio.file.Path;
 
-import static io.github.scordio.jimfs.junit.jupiter.tests.JupiterEngineTestKit.executeTests;
-import static io.github.scordio.jimfs.junit.jupiter.tests.JupiterEngineTestKit.executeTestsForClass;
-import static io.github.scordio.jimfs.junit.jupiter.tests.Requirements.osXFileSystem;
-import static io.github.scordio.jimfs.junit.jupiter.tests.Requirements.unixFileSystem;
-import static io.github.scordio.jimfs.junit.jupiter.tests.Requirements.windowsFileSystem;
+import static io.github.scordio.tests.jimfs.junit.jupiter.JupiterEngineTestKit.executeTests;
+import static io.github.scordio.tests.jimfs.junit.jupiter.JupiterEngineTestKit.executeTestsForClass;
+import static io.github.scordio.tests.jimfs.junit.jupiter.Requirements.osXFileSystem;
+import static io.github.scordio.tests.jimfs.junit.jupiter.Requirements.unixFileSystem;
+import static io.github.scordio.tests.jimfs.junit.jupiter.Requirements.windowsFileSystem;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.condition.OS.MAC;
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectClass;
