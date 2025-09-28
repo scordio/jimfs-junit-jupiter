@@ -20,8 +20,10 @@ attribute specifies a different type.
 
 ## Default Jimfs Configuration
 
-The default Jimfs configuration for all direct or indirect `JimfsTempDirFactory` usages can be set via the
-`jimfs.junit.jupiter.tempdir.configuration.default` configuration parameter.
+The default Jimfs configuration for all [`JimfsTempDirFactory`](usage.md#tempdir-with-jimfstempdirfactory) and
+[`@JimfsTempDir`](usage.md#jimfstempdir) usages can be set via the `jimfs.junit.jupiter.tempdir.configuration.default`
+configuration parameter.
+
 One of the following values is expected (case-insensitive):
 
 * `FOR_CURRENT_PLATFORM`: appropriate to the current platform (default)
@@ -36,5 +38,5 @@ running:
 jimfs.junit.jupiter.tempdir.configuration.default=windows
 ```
 
-All Jimfs-based temporary directories will be configured accordingly unless [`@JimfsTempDir`](usage.md#jimfstempdir) is used with its `value`
+All Jimfs-based temporary directories will be configured accordingly unless `@JimfsTempDir` is used with its `value`
 attribute set.
