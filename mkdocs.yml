@@ -64,6 +64,10 @@ markdown_extensions:
   - toc:
       permalink: true
 
+# Extra stylesheets
+extra_css:
+  - stylesheets/extra.css
+
 # Page tree
 nav:
   - index.md
