@@ -1,0 +1,30 @@
+/* Default (light mode) */
+:root > * {
+    --md-code-hl-function-color: #00627A;
+    --md-code-hl-keyword-color: #0033B3;
+    --md-code-hl-metadata-color: #9E880D;
+    --md-code-hl-name-color: #000000;
+    --md-code-hl-string-color: #067D17;
+}
+
+/* Dark mode */
+[data-md-color-scheme="slate"] {
+    --md-code-hl-function-color: #56A8F5;
+    --md-code-hl-keyword-color: #CF8E6D;
+    --md-code-hl-metadata-color: #BBB529;
+    --md-code-hl-name-color: #BCBEC4;
+    --md-code-hl-string-color: #6AAB73;
+}
+
+.highlight :is(.na, .nn) {
+    color: var(--md-code-hl-name-color);
+}
+
+.highlight .nd {
+    color: var(--md-code-hl-metadata-color);
+}
+
+/* Dark mode override */
+[data-md-color-scheme="slate"] .highlight .nt {
+    color: #D5B778;
+}
