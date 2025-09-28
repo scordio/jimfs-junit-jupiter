@@ -5,8 +5,8 @@ Jimfs JUnit Jupiter supports JUnit
 
 ## Default `@TempDir` Factory
 
-The `junit.jupiter.tempdir.factory.default` configuration parameter sets the default factory to use, expecting a fully
-qualified class name.
+The default factory to use across all `@TempDir` annotated elements can be set via the
+`junit.jupiter.tempdir.factory.default` configuration parameter, providing a fully qualified class name.
 
 For example, the following configures `JimfsTempDirFactory`:
 
@@ -20,11 +20,9 @@ attribute specifies a different type.
 
 ## Default Jimfs Configuration
 
-<!-- md:version 0.2.0 -->
-<!-- md:default `indigo` -->
-
-The `jimfs.junit.jupiter.tempdir.configuration.default` configuration parameter sets the default Jimfs configuration to
-use. It expects one of the following values (case-insensitive):
+The default Jimfs configuration for all direct or indirect `JimfsTempDirFactory` usages can be set via the
+`jimfs.junit.jupiter.tempdir.configuration.default` configuration parameter.
+One of the following values is expected (case-insensitive):
 
 * `FOR_CURRENT_PLATFORM`: appropriate to the current platform (default)
 * `OS_X`: for a Mac OS X-like file system
