@@ -8,14 +8,14 @@ using the [Jimfs](https://github.com/google/jimfs) file system.
 
 Jimfs JUnit Jupiter is based on JUnit Jupiter 5 and requires Java 8 or higher.
 
-Compatibility is guaranteed only with the JUnit Jupiter versions from
+Compatibility is guaranteed only with the JUnit Framework versions from
 [5.10.0](https://junit.org/junit5/docs/5.10.0/release-notes/index.html)
 to the
 [latest](https://junit.org/junit5/docs/current/release-notes/index.html).
 
 ## Getting Started
 
-[![Jimfs JUnit Jupiter](https://img.shields.io/maven-central/v/io.github.scordio/jimfs-junit-jupiter?label=Jimfs%20JUnit%20Jupiter)](https://central.sonatype.com/artifact/io.github.scordio/jimfs-junit-jupiter)
+[![Jimfs JUnit Jupiter](https://img.shields.io/maven-central/v/io.github.scordio/jimfs-junit-jupiter?label=Jimfs%20JUnit%20Jupiter&color=#4cae4f)](https://central.sonatype.com/artifact/io.github.scordio/jimfs-junit-jupiter)
 
 === ":simple-apachemaven: Maven"
 
@@ -33,3 +33,5 @@ to the
     ``` kotlin
     testImplementation("io.github.scordio:jimfs-junit-jupiter:${jimfsJunitJupiterVersion}")
     ```
+
+For instructions on how to use it with JUnit Jupiter, see the [Usage](usage.md) section.
