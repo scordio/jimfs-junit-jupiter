@@ -6,12 +6,7 @@ using the [Jimfs](https://github.com/google/jimfs) file system.
 
 ## Compatibility
 
-Jimfs JUnit Jupiter is based on JUnit Jupiter 5 and requires Java 8 or higher.
-
-Compatibility is guaranteed only with the JUnit Framework versions from
-[5.10.0](https://junit.org/junit5/docs/5.10.0/release-notes/index.html)
-to the
-[latest](https://junit.org/junit5/docs/current/release-notes/index.html).
+Jimfs JUnit Jupiter is based on JUnit Jupiter 6 and requires Java 17 or higher.
 
 ## Getting Started
 
