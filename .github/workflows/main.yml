@@ -100,10 +100,7 @@ jobs:
       - name: Install Material for MkDocs
         run: pip install mkdocs-material
       - name: Build User Guide
-        run: |
-          git config user.name '${{ github.actor }}'
-          git config user.email '${{ github.actor }}@users.noreply.github.com'
-          mkdocs build --strict
+        run: mkdocs build --strict
       - name: Upload User Guide Artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
