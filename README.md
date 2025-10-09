@@ -8,8 +8,8 @@ using the [Jimfs](https://github.com/google/jimfs) file system.
 
 ## Documentation
 
-- [User Guide](https://scordio.github.io/jimfs-junit-jupiter/)
-- [Release Notes](../../releases)
+- [User Guide](https://stefano.codes/jimfs-junit-jupiter/)
+- [Release Notes](https://github.com/scordio/jimfs-junit-jupiter/releases)
 
 ## Motivation
 
