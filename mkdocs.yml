@@ -18,8 +18,9 @@ theme:
   features:
     - content.code.copy
   icon:
-    logo: fontawesome/brands/java
     repo: fontawesome/brands/github
+  favicon: assets/images/logo.png
+  logo: assets/images/logo-white.png
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
