@@ -97,8 +97,8 @@ jobs:
         with:
           python-version: 3.x
           cache: 'pip'
-      - name: Install Material for MkDocs
-        run: pip install mkdocs-material
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
       - name: Build User Guide
         run: mkdocs build --strict
       - name: Upload User Guide Artifact
