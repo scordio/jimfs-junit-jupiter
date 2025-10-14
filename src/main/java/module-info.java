@@ -20,9 +20,13 @@
  */
 @SuppressWarnings({"requires-automatic", "requires-transitive-automatic"})
 module io.github.scordio.jimfs.junit.jupiter {
+
 	requires static transitive org.jspecify;
+
 	requires transitive com.google.common.jimfs;
+
 	requires org.junit.jupiter.api;
 
 	exports io.github.scordio.jimfs.junit.jupiter;
+
 }
