@@ -53,9 +53,9 @@ import java.util.function.Supplier;
  * </ul>
  *
  * <p>
- * Please note that only annotated fields or parameters of type {@link java.nio.file.Path}
- * are supported as Jimfs is a non-default file system, and {@link java.io.File} instances
- * are associated with the default file system only.
+ * Please note that only annotated fields or parameters of type {@link Path} are supported
+ * as Jimfs is a non-default file system, and {@link java.io.File} instances are
+ * associated with the default file system only.
  *
  * @see Jimfs#newFileSystem(com.google.common.jimfs.Configuration)
  * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
@@ -77,27 +77,38 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 			throws IOException {
 		Optional<JimfsTempDir> annotation = elementContext.findAnnotation(JimfsTempDir.class);
 
-		Supplier<Configuration> configuration = annotation.map(JimfsTempDir::value)
-			.filter(JimfsTempDirFactory::isNotDefaultConfiguration)
-			.map(JimfsTempDir.Configuration::getConfiguration)
-			.orElseGet(() -> extensionContext
+		Supplier<Configuration> jimfsConfigurationSupplier = annotation.map(JimfsTempDir::value)
+			.flatMap(JimfsTempDirFactory::getJimfsConfigurationSupplier)
+			.or(() -> extensionContext
 				.getConfigurationParameter(JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
 						JimfsTempDirFactory::transform)
-				.filter(JimfsTempDirFactory::isNotDefaultConfiguration)
-				.map(JimfsTempDir.Configuration::getConfiguration)
-				.orElse(Configuration::forCurrentPlatform));
+				.flatMap(JimfsTempDirFactory::getJimfsConfigurationSupplier))
+			.orElse(Configuration::forCurrentPlatform);
 
-		fileSystem = Jimfs.newFileSystem(configuration.get());
+		fileSystem = Jimfs.newFileSystem(jimfsConfigurationSupplier.get());
 		Path root = fileSystem.getRootDirectories().iterator().next();
 		return Files.createTempDirectory(root, DEFAULT_PREFIX);
 	}
 
-	private static JimfsTempDir.Configuration transform(String value) {
-		return JimfsTempDir.Configuration.valueOf(value.trim().toUpperCase(Locale.ROOT));
+	private static Optional<Supplier<Configuration>> getJimfsConfigurationSupplier(
+			JimfsTempDir.Configuration configuration) {
+		if (JimfsTempDir.Configuration.DEFAULT == configuration) {
+			return Optional.empty();
+		}
+
+		Supplier<Configuration> jimfsConfigurationSupplier = switch (configuration) {
+			case FOR_CURRENT_PLATFORM -> Configuration::forCurrentPlatform;
+			case OS_X -> Configuration::osX;
+			case UNIX -> Configuration::unix;
+			case WINDOWS -> Configuration::windows;
+			default -> throw new RuntimeException("Should not be thrown");
+		};
+
+		return Optional.of(jimfsConfigurationSupplier);
 	}
 
-	private static boolean isNotDefaultConfiguration(JimfsTempDir.Configuration value) {
-		return value != JimfsTempDir.Configuration.DEFAULT;
+	private static JimfsTempDir.Configuration transform(String value) {
+		return JimfsTempDir.Configuration.valueOf(value.trim().toUpperCase(Locale.ROOT));
 	}
 
 	/** {@inheritDoc} */
