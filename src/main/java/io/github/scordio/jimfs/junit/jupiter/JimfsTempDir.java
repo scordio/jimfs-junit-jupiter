@@ -22,7 +22,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Supplier;
 
 /**
  * {@link TempDir} composed annotation that sets the {@link TempDir#factory() factory}
@@ -78,41 +77,31 @@ public @interface JimfsTempDir {
 		 * @see #DEFAULT_CONFIGURATION_PARAMETER_NAME
 		 * @since 0.2.0
 		 */
-		DEFAULT(com.google.common.jimfs.Configuration::forCurrentPlatform),
+		DEFAULT,
 		/**
 		 * Configuration appropriate to the current platform.
 		 *
 		 * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
 		 */
-		FOR_CURRENT_PLATFORM(com.google.common.jimfs.Configuration::forCurrentPlatform),
+		FOR_CURRENT_PLATFORM,
 		/**
 		 * Configuration for a Mac OS X-like file system.
 		 *
 		 * @see com.google.common.jimfs.Configuration#osX()
 		 */
-		OS_X(com.google.common.jimfs.Configuration::osX),
+		OS_X,
 		/**
 		 * Configuration for a Unix-like file system.
 		 *
 		 * @see com.google.common.jimfs.Configuration#unix()
 		 */
-		UNIX(com.google.common.jimfs.Configuration::unix),
+		UNIX,
 		/**
 		 * Configuration for a Windows-like file system.
 		 *
 		 * @see com.google.common.jimfs.Configuration#windows()
 		 */
-		WINDOWS(com.google.common.jimfs.Configuration::windows);
-
-		private final Supplier<com.google.common.jimfs.Configuration> configuration;
-
-		Configuration(Supplier<com.google.common.jimfs.Configuration> configuration) {
-			this.configuration = configuration;
-		}
-
-		Supplier<com.google.common.jimfs.Configuration> getConfiguration() {
-			return configuration;
-		}
+		WINDOWS
 
 	}
 

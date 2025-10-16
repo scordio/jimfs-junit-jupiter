@@ -20,8 +20,10 @@ import com.google.common.jimfs.Jimfs;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.api.io.TempDirFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -35,11 +37,10 @@ import java.util.function.Supplier;
  * {@link Jimfs}, using {@value DEFAULT_PREFIX} as the name prefix.
  *
  * <p>
- * When used as a standalone factory within the {@link org.junit.jupiter.api.io.TempDir}
- * annotation, or set as value for the
- * {@value org.junit.jupiter.api.io.TempDir#DEFAULT_FACTORY_PROPERTY_NAME} configuration
- * parameter, the factory configures the underlying file system appropriately for the
- * {@link com.google.common.jimfs.Configuration#forCurrentPlatform() current platform}.
+ * When used as a standalone factory within the {@link TempDir} annotation, or set as
+ * value for the {@value TempDir#DEFAULT_FACTORY_PROPERTY_NAME} configuration parameter,
+ * the factory configures the underlying file system appropriately for the
+ * {@link Configuration#forCurrentPlatform() current platform}.
  *
  * <p>
  * For better control over the underlying in-memory file system, consider using one of the
@@ -53,12 +54,12 @@ import java.util.function.Supplier;
  * </ul>
  *
  * <p>
- * Please note that only annotated fields or parameters of type {@link java.nio.file.Path}
- * are supported as Jimfs is a non-default file system, and {@link java.io.File} instances
- * are associated with the default file system only.
+ * Please note that only annotated fields or parameters of type {@link Path} are supported
+ * as Jimfs is a non-default file system, and {@link File} instances are associated with
+ * the default file system only.
  *
- * @see Jimfs#newFileSystem(com.google.common.jimfs.Configuration)
- * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
+ * @see Jimfs#newFileSystem(Configuration)
+ * @see Configuration#forCurrentPlatform()
  */
 @SuppressWarnings("exports")
 public final class JimfsTempDirFactory implements TempDirFactory {
@@ -77,27 +78,36 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 			throws IOException {
 		Optional<JimfsTempDir> annotation = elementContext.findAnnotation(JimfsTempDir.class);
 
-		Supplier<Configuration> configuration = annotation.map(JimfsTempDir::value)
+		Supplier<Configuration> jimfsConfigurationSupplier = annotation.map(JimfsTempDir::value)
 			.filter(JimfsTempDirFactory::isNotDefaultConfiguration)
-			.map(JimfsTempDir.Configuration::getConfiguration)
+			.map(JimfsTempDirFactory::getJimfsConfigurationSupplier)
 			.orElseGet(() -> extensionContext
 				.getConfigurationParameter(JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
 						JimfsTempDirFactory::transform)
 				.filter(JimfsTempDirFactory::isNotDefaultConfiguration)
-				.map(JimfsTempDir.Configuration::getConfiguration)
+				.map(JimfsTempDirFactory::getJimfsConfigurationSupplier)
 				.orElse(Configuration::forCurrentPlatform));
 
-		fileSystem = Jimfs.newFileSystem(configuration.get());
+		fileSystem = Jimfs.newFileSystem(jimfsConfigurationSupplier.get());
 		Path root = fileSystem.getRootDirectories().iterator().next();
 		return Files.createTempDirectory(root, DEFAULT_PREFIX);
 	}
 
-	private static JimfsTempDir.Configuration transform(String value) {
-		return JimfsTempDir.Configuration.valueOf(value.trim().toUpperCase(Locale.ROOT));
-	}
-
 	private static boolean isNotDefaultConfiguration(JimfsTempDir.Configuration value) {
 		return value != JimfsTempDir.Configuration.DEFAULT;
+	}
+
+	private static Supplier<Configuration> getJimfsConfigurationSupplier(JimfsTempDir.Configuration configuration) {
+		return switch (configuration) {
+			case DEFAULT, FOR_CURRENT_PLATFORM -> Configuration::forCurrentPlatform;
+			case OS_X -> Configuration::osX;
+			case UNIX -> Configuration::unix;
+			case WINDOWS -> Configuration::windows;
+		};
+	}
+
+	private static JimfsTempDir.Configuration transform(String value) {
+		return JimfsTempDir.Configuration.valueOf(value.trim().toUpperCase(Locale.ROOT));
 	}
 
 	/** {@inheritDoc} */
