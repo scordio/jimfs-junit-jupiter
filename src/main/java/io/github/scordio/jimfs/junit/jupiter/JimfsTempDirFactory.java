@@ -20,10 +20,8 @@ import com.google.common.jimfs.Jimfs;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.api.io.TempDirFactory;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -37,9 +35,10 @@ import java.util.function.Supplier;
  * {@link Jimfs}, using {@value DEFAULT_PREFIX} as the name prefix.
  *
  * <p>
- * When used as a standalone factory within the {@link TempDir} annotation, or set as
- * value for the {@value TempDir#DEFAULT_FACTORY_PROPERTY_NAME} configuration parameter,
- * the factory configures the underlying file system appropriately for the
+ * When used as a standalone factory within the {@link org.junit.jupiter.api.io.TempDir}
+ * annotation, or set as value for the
+ * {@value org.junit.jupiter.api.io.TempDir#DEFAULT_FACTORY_PROPERTY_NAME} configuration
+ * parameter, the factory configures the underlying file system appropriately for the
  * {@link Configuration#forCurrentPlatform() current platform}.
  *
  * <p>
@@ -55,8 +54,8 @@ import java.util.function.Supplier;
  *
  * <p>
  * Please note that only annotated fields or parameters of type {@link Path} are supported
- * as Jimfs is a non-default file system, and {@link File} instances are associated with
- * the default file system only.
+ * as Jimfs is a non-default file system, and {@link java.io.File} instances are
+ * associated with the default file system only.
  *
  * @see Jimfs#newFileSystem(Configuration)
  * @see Configuration#forCurrentPlatform()
