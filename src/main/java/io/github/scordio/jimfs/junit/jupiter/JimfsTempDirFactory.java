@@ -39,7 +39,7 @@ import java.util.function.Supplier;
  * annotation, or set as value for the
  * {@value org.junit.jupiter.api.io.TempDir#DEFAULT_FACTORY_PROPERTY_NAME} configuration
  * parameter, the factory configures the underlying file system appropriately for the
- * {@link Configuration#forCurrentPlatform() current platform}.
+ * {@link com.google.common.jimfs.Configuration#forCurrentPlatform() current platform}.
  *
  * <p>
  * For better control over the underlying in-memory file system, consider using one of the
@@ -57,8 +57,8 @@ import java.util.function.Supplier;
  * as Jimfs is a non-default file system, and {@link java.io.File} instances are
  * associated with the default file system only.
  *
- * @see Jimfs#newFileSystem(Configuration)
- * @see Configuration#forCurrentPlatform()
+ * @see Jimfs#newFileSystem(com.google.common.jimfs.Configuration)
+ * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
  */
 @SuppressWarnings("exports")
 public final class JimfsTempDirFactory implements TempDirFactory {
@@ -78,31 +78,33 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 		Optional<JimfsTempDir> annotation = elementContext.findAnnotation(JimfsTempDir.class);
 
 		Supplier<Configuration> jimfsConfigurationSupplier = annotation.map(JimfsTempDir::value)
-			.filter(JimfsTempDirFactory::isNotDefaultConfiguration)
-			.map(JimfsTempDirFactory::getJimfsConfigurationSupplier)
-			.orElseGet(() -> extensionContext
+			.flatMap(JimfsTempDirFactory::getJimfsConfigurationSupplier)
+			.or(() -> extensionContext
 				.getConfigurationParameter(JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
 						JimfsTempDirFactory::transform)
-				.filter(JimfsTempDirFactory::isNotDefaultConfiguration)
-				.map(JimfsTempDirFactory::getJimfsConfigurationSupplier)
-				.orElse(Configuration::forCurrentPlatform));
+				.flatMap(JimfsTempDirFactory::getJimfsConfigurationSupplier))
+			.orElse(Configuration::forCurrentPlatform);
 
 		fileSystem = Jimfs.newFileSystem(jimfsConfigurationSupplier.get());
 		Path root = fileSystem.getRootDirectories().iterator().next();
 		return Files.createTempDirectory(root, DEFAULT_PREFIX);
 	}
 
-	private static boolean isNotDefaultConfiguration(JimfsTempDir.Configuration value) {
-		return value != JimfsTempDir.Configuration.DEFAULT;
-	}
+	private static Optional<Supplier<Configuration>> getJimfsConfigurationSupplier(
+			JimfsTempDir.Configuration configuration) {
+		if (JimfsTempDir.Configuration.DEFAULT == configuration) {
+			return Optional.empty();
+		}
 
-	private static Supplier<Configuration> getJimfsConfigurationSupplier(JimfsTempDir.Configuration configuration) {
-		return switch (configuration) {
-			case DEFAULT, FOR_CURRENT_PLATFORM -> Configuration::forCurrentPlatform;
+		Supplier<Configuration> jimfsConfigurationSupplier = switch (configuration) {
+			case FOR_CURRENT_PLATFORM -> Configuration::forCurrentPlatform;
 			case OS_X -> Configuration::osX;
 			case UNIX -> Configuration::unix;
 			case WINDOWS -> Configuration::windows;
+			default -> throw new RuntimeException("Should not be thrown");
 		};
+
+		return Optional.of(jimfsConfigurationSupplier);
 	}
 
 	private static JimfsTempDir.Configuration transform(String value) {
