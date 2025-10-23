@@ -146,9 +146,9 @@
             <additionalOptions>--link-modularity-mismatch=info</additionalOptions> <!-- https://github.com/jspecify/jspecify/issues/712 -->
             <failOnWarnings>true</failOnWarnings>
             <links>
+              <link>https://docs.junit.org/${junit-jupiter.version}/api/</link>
               <link>https://javadoc.io/static/com.google.jimfs/jimfs/${jimfs.version}/</link>
               <link>https://jspecify.dev/docs/api/</link>
-              <link>https://docs.junit.org/${junit-jupiter.version}/api/</link>
             </links>
           </configuration>
         </plugin>
@@ -211,6 +211,23 @@
             <goals>
               <goal>validate</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.6.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${project.basedir}/src/demo/java</source>
+              </sources>
+            </configuration>
           </execution>
         </executions>
       </plugin>
