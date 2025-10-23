@@ -6,15 +6,11 @@ The simplest way to use Jimfs JUnit Jupiter is to set the
 [`factory`](https://docs.junit.org/current/api/org.junit.jupiter.api/org/junit/jupiter/api/io/TempDir.html#factory())
 attribute of `@TempDir` to `JimfsTempDirFactory`:
 
-```java
-import io.github.scordio.jimfs.junit.jupiter.JimfsTempDirFactory;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-@Test
-void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
-  assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
-}
+``` java
+--8<--
+JimfsTempDirFactoryDemo.java:import
+JimfsTempDirFactoryDemo.java:test
+--8<--
 ```
 
 `tempDir` is resolved to an in-memory temporary directory based on Jimfs, configured appropriately for the current
@@ -28,14 +24,11 @@ the same can also be done with class fields and constructor parameters.
 `@JimfsTempDir` is an annotation that can be used as a drop-in replacement for
 `@TempDir(factory = JimfsTempDirFactory.class)`:
 
-```java
-import io.github.scordio.jimfs.junit.jupiter.JimfsTempDir;
-import org.junit.jupiter.api.Test;
-
-@Test
-void test(@JimfsTempDir Path tempDir) {
-  assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
-}
+``` java
+--8<--
+JimfsTempDirDemo.java:import
+JimfsTempDirDemo.java:test-default
+--8<--
 ```
 
 The default behavior of the annotation is equivalent to using `JimfsTempDirFactory` directly: `tempDir` is resolved to
@@ -53,14 +46,10 @@ that can be set to the desired configuration, one of:
 For example, the following defines a Windows-like temporary directory, regardless of the platform on which the test is
 running:
 
-```java
-import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.WINDOWS;
-
-import io.github.scordio.jimfs.junit.jupiter.JimfsTempDir;
-import org.junit.jupiter.api.Test;
-
-@Test
-void test(@JimfsTempDir(WINDOWS) Path tempDir) {
-  assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("\\");
-}
+``` java
+--8<--
+JimfsTempDirDemo.java:import
+JimfsTempDirDemo.java:import-windows
+JimfsTempDirDemo.java:test-windows
+--8<--
 ```
