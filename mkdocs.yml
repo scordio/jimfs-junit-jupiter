@@ -41,6 +41,11 @@ theme:
         icon: material/toggle-switch-off
         name: Switch to system preference
 
+# Plugins
+plugins:
+  - search
+  - social
+
 # Additional configuration
 extra:
   social:
