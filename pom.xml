@@ -190,7 +190,7 @@
           </licenseSets>
           <properties>
             <owner>Stefano Cordio</owner>
-            <year>2025</year>
+            <year>${project.inceptionYear}-2025</year>
           </properties>
         </configuration>
         <executions>

@@ -10,7 +10,7 @@ site_dir: target/mkdocs
 repo_url: https://github.com/scordio/jimfs-junit-jupiter
 
 # Copyright
-copyright: Copyright &copy; 2025 Stefano Cordio
+copyright: Copyright &copy; 2024-2025 Stefano Cordio
 
 # Configuration
 theme:
