@@ -17,10 +17,9 @@ package io.github.scordio;
 
 // --8<-- [start:import]
 import io.github.scordio.jimfs.junit.jupiter.JimfsTempDirFactory;
-// --8<-- [end:import]
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+// --8<-- [end:import]
 
 import java.nio.file.Path;
 

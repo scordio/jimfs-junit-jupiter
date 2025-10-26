@@ -17,10 +17,8 @@ package io.github.scordio;
 
 // --8<-- [start:import]
 import io.github.scordio.jimfs.junit.jupiter.JimfsTempDir;
-// --8<-- [end:import]
-
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+// --8<-- [end:import]
 
 import java.nio.file.Path;
 
@@ -32,8 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JimfsTempDirDemo {
 
-	@Nested
-	class Default {
+	static class Default {
 
 // @formatter:off
 // --8<-- [start:test-default]
@@ -47,8 +44,7 @@ void test(@JimfsTempDir Path tempDir) {
 
 	}
 
-	@Nested
-	class Windows {
+    static class Windows {
 
 // @formatter:off
 // --8<-- [start:test-windows]
