@@ -25,7 +25,7 @@ jobs:
           distribution: 'zulu'
 
       - name: Publish to Maven Central
-        run: ./mvnw $MAVEN_ARGS -Prelease deploy
+        run: ./mvnw $MAVEN_ARGS -Ppublish deploy
         env:
           JRELEASER_MAVENCENTRAL_USERNAME: ${{ secrets.JRELEASER_MAVENCENTRAL_USERNAME }}
           JRELEASER_MAVENCENTRAL_TOKEN: ${{ secrets.JRELEASER_MAVENCENTRAL_TOKEN }}

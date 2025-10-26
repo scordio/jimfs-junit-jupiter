@@ -263,7 +263,7 @@
 
   <profiles>
     <profile>
-      <id>release</id>
+      <id>publish</id>
       <properties>
         <altDeploymentRepository>local::file:./target/staging-deploy</altDeploymentRepository>
       </properties>
