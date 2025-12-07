@@ -115,6 +115,7 @@
               <compilerArg>
                 -Xplugin:ErrorProne
                 -Xep:SameNameButDifferent:OFF
+                -Xep:RequireExplicitNullMarking:WARN
                 -XepOpt:NullAway:OnlyNullMarked
               </compilerArg>
             </compilerArgs>
