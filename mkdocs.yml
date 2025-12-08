@@ -6,6 +6,9 @@ site_description: JUnit Jupiter `@TempDir` extension based on the in-memory file
 
 site_dir: target/mkdocs
 
+# Fail with warnings
+strict: true
+
 # Repository
 repo_url: https://github.com/scordio/jimfs-junit-jupiter
 

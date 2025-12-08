@@ -100,7 +100,7 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
       - name: Build User Guide
-        run: mkdocs build --strict
+        run: mkdocs build
       - name: Upload User Guide Artifact
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
         with:
