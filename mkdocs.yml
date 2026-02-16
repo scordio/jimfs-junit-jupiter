@@ -50,6 +50,8 @@ theme:
 
 # Plugins
 plugins:
+  - git-revision-date-localized:
+      type: timeago
   - search
   - social:
       cards_layout: default/variant
