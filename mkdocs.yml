@@ -11,6 +11,7 @@ strict: true
 
 # Repository
 repo_url: https://github.com/scordio/jimfs-junit-jupiter
+edit_uri: edit/main/docs/
 
 # Copyright
 copyright: Copyright &copy; 2024-2025 Stefano Cordio
@@ -19,9 +20,11 @@ copyright: Copyright &copy; 2024-2025 Stefano Cordio
 theme:
   name: material
   features:
+    - content.action.edit
     - content.code.copy
     - toc.integrate
   icon:
+    edit: material/pencil
     repo: fontawesome/brands/github
   favicon: assets/images/logo.png
   logo: assets/images/logo-white.png
