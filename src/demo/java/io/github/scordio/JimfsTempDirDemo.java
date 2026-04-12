@@ -44,7 +44,7 @@ void test(@JimfsTempDir Path tempDir) {
 
 	}
 
-    static class Windows {
+	static class Windows {
 
 // @formatter:off
 // --8<-- [start:test-windows]

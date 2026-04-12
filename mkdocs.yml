@@ -56,6 +56,10 @@ plugins:
   - social:
       cards_layout: default/variant
 
+# Hooks
+hooks:
+  - hooks/javadoc.py
+
 # Additional configuration
 extra:
   social:
