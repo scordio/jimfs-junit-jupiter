@@ -23,7 +23,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class JimfsTempDirFactoryDemo {
 
@@ -32,7 +32,7 @@ class JimfsTempDirFactoryDemo {
 
 @Test
 void test(@TempDir(factory = JimfsTempDirFactory.class) Path tempDir) {
-	assertEquals("jimfs", tempDir.getFileSystem().provider().getScheme());
+	assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
 }
 // --8<-- [end:test]
 // @formatter:on

@@ -26,7 +26,7 @@ import java.nio.file.Path;
 
 import static io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration.WINDOWS;
 // --8<-- [end:import-windows]
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class JimfsTempDirDemo {
 
@@ -37,7 +37,7 @@ class JimfsTempDirDemo {
 
 @Test
 void test(@JimfsTempDir Path tempDir) {
-	assertEquals("jimfs", tempDir.getFileSystem().provider().getScheme());
+	assertThat(tempDir.getFileSystem().provider().getScheme()).isEqualTo("jimfs");
 }
 // --8<-- [end:test-default]
 // @formatter:on
@@ -51,7 +51,7 @@ void test(@JimfsTempDir Path tempDir) {
 
 @Test
 void test(@JimfsTempDir(WINDOWS) Path tempDir) {
-	assertEquals("\\", tempDir.getFileSystem().getSeparator());
+	assertThat(tempDir.getFileSystem().getSeparator()).isEqualTo("\\");
 }
 // --8<-- [end:test-windows]
 // @formatter:on
