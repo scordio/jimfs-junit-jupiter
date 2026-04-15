@@ -306,7 +306,9 @@
                   <jreleaser>
                     <signing>
                       <active>ALWAYS</active>
-                      <armored>true</armored>
+                      <pgp>
+                        <armored>true</armored>
+                      </pgp>
                     </signing>
                     <deploy>
                       <maven>
