@@ -52,6 +52,10 @@ theme:
 plugins:
   - git-revision-date-localized:
       type: timeago
+  - privacy:
+      assets: false
+      links_attr_map:
+        target: _blank
   - search
   - social:
       cards_layout: default/variant
