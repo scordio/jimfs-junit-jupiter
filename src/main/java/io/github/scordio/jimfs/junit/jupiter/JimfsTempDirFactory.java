@@ -83,6 +83,7 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 				.getConfigurationParameter(JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
 						JimfsTempDirFactory::transform)
 				.flatMap(JimfsTempDirFactory::getJimfsConfigurationSupplier))
+			// FIXME source default from JimfsTempDir.DEFAULT_CONFIGURATION_DEFAULT
 			.orElse(Configuration::forCurrentPlatform);
 
 		fileSystem = Jimfs.newFileSystem(jimfsConfigurationSupplier.get());

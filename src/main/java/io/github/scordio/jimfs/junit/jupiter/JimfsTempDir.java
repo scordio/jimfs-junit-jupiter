@@ -16,6 +16,8 @@
 package io.github.scordio.jimfs.junit.jupiter;
 
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.platform.configuration.api.ConfigurationParameter;
+import org.junit.platform.configuration.api.ConfigurationParameter.Value;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -44,15 +46,20 @@ import java.lang.annotation.Target;
 public @interface JimfsTempDir {
 
 	/**
-	 * Configuration parameter to set the default {@link Configuration Configuration} for
-	 * the in-memory file system.
+	 * Default value for {@value #DEFAULT_CONFIGURATION_PARAMETER_NAME} is {@value}.
+	 */
+	String DEFAULT_CONFIGURATION_DEFAULT = "FOR_CURRENT_PLATFORM";
+
+	/**
+	 * Property name used to set the default {@link Configuration Configuration} for the
+	 * in-memory file system: {@value}.
 	 *
 	 * <p>
-	 * If this configuration parameter is not set, the default is
-	 * {@link Configuration#FOR_CURRENT_PLATFORM}.
+	 * When not set, the default is {@link Configuration#FOR_CURRENT_PLATFORM}.
 	 *
 	 * @since 0.2.0
 	 */
+	@ConfigurationParameter(defaultValue = @Value(stringValue = DEFAULT_CONFIGURATION_DEFAULT))
 	String DEFAULT_CONFIGURATION_PARAMETER_NAME = "jimfs.junit.jupiter.tempdir.configuration.default";
 
 	/**
