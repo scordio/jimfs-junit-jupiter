@@ -37,7 +37,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Dependency versions -->
     <jimfs.version>1.3.2</jimfs.version>
-    <junit-framework.version>6.1.3</junit-framework.version>
+    <junit-framework.version>6.2.0-SNAPSHOT</junit-framework.version>
   </properties>
 
   <dependencyManagement>
@@ -67,6 +67,12 @@
       <groupId>org.jspecify</groupId>
       <artifactId>jspecify</artifactId>
       <version>1.0.1</version>
+    </dependency>
+    <!-- Optional -->
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-configuration-api</artifactId>
+      <optional>true</optional>
     </dependency>
     <!-- Provided -->
     <dependency>
@@ -109,6 +115,13 @@
               <compilerArg>-parameters</compilerArg>
               <compilerArg>-Xlint:all,-requires-automatic</compilerArg>
             </compilerArgs>
+            <annotationProcessorPaths>
+              <path>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-configuration-processor</artifactId>
+                <version>${junit-framework.version}</version>
+              </path>
+            </annotationProcessorPaths>
             <failOnWarning>true</failOnWarning>
           </configuration>
         </plugin>
