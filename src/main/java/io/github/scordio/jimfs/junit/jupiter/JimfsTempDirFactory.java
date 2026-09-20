@@ -77,7 +77,7 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 			throws IOException {
 		Configuration configuration = getFromAnnotation(elementContext)
 			.or(() -> getFromConfigurationParameter(extensionContext))
-			.orElse(Configuration.FOR_CURRENT_PLATFORM);
+			.orElseGet(JimfsTempDirFactory::getDefault);
 
 		fileSystem = Jimfs.newFileSystem(switch (configuration) {
 			case FOR_CURRENT_PLATFORM -> com.google.common.jimfs.Configuration.forCurrentPlatform();
@@ -102,6 +102,10 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 			.getConfigurationParameter(JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
 					JimfsTempDirFactory::transform)
 			.filter(configuration -> configuration != Configuration.DEFAULT);
+	}
+
+	private static JimfsTempDir.Configuration getDefault() {
+		return transform(JimfsTempDir.DEFAULT_CONFIGURATION_DEFAULT);
 	}
 
 	private static Configuration transform(String value) {
