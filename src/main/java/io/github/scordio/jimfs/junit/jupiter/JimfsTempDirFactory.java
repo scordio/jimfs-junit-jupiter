@@ -15,8 +15,8 @@
  */
 package io.github.scordio.jimfs.junit.jupiter;
 
-import com.google.common.jimfs.Configuration;
 import com.google.common.jimfs.Jimfs;
+import io.github.scordio.jimfs.junit.jupiter.JimfsTempDir.Configuration;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.extension.AnnotatedElementContext;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -28,7 +28,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * {@link TempDirFactory} implementation that creates an in-memory temporary directory via
@@ -67,51 +66,48 @@ public final class JimfsTempDirFactory implements TempDirFactory {
 
 	private @Nullable FileSystem fileSystem;
 
-	/** Create a new {@code JimfsTempDirFactory} instance. */
+	/**
+	 * Create a new {@code JimfsTempDirFactory} instance.
+	 */
 	public JimfsTempDirFactory() {
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public Path createTempDirectory(AnnotatedElementContext elementContext, ExtensionContext extensionContext)
 			throws IOException {
-		Optional<JimfsTempDir> annotation = elementContext.findAnnotation(JimfsTempDir.class);
+		Configuration configuration = getFromAnnotation(elementContext)
+			.or(() -> getFromConfigurationParameter(extensionContext))
+			.orElse(Configuration.FOR_CURRENT_PLATFORM);
 
-		Supplier<Configuration> jimfsConfigurationSupplier = annotation.map(JimfsTempDir::value)
-			.flatMap(JimfsTempDirFactory::getJimfsConfigurationSupplier)
-			.or(() -> extensionContext
-				.getConfigurationParameter(JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
-						JimfsTempDirFactory::transform)
-				.flatMap(JimfsTempDirFactory::getJimfsConfigurationSupplier))
-			.orElse(Configuration::forCurrentPlatform);
+		fileSystem = Jimfs.newFileSystem(switch (configuration) {
+			case FOR_CURRENT_PLATFORM -> com.google.common.jimfs.Configuration.forCurrentPlatform();
+			case OS_X -> com.google.common.jimfs.Configuration.osX();
+			case UNIX -> com.google.common.jimfs.Configuration.unix();
+			case WINDOWS -> com.google.common.jimfs.Configuration.windows();
+			default -> throw new RuntimeException("Should not be thrown");
+		});
 
-		fileSystem = Jimfs.newFileSystem(jimfsConfigurationSupplier.get());
 		Path root = fileSystem.getRootDirectories().iterator().next();
 		return Files.createTempDirectory(root, DEFAULT_PREFIX);
 	}
 
-	private static Optional<Supplier<Configuration>> getJimfsConfigurationSupplier(
-			JimfsTempDir.Configuration configuration) {
-		if (JimfsTempDir.Configuration.DEFAULT == configuration) {
-			return Optional.empty();
-		}
-
-		Supplier<Configuration> jimfsConfigurationSupplier = switch (configuration) {
-			case FOR_CURRENT_PLATFORM -> Configuration::forCurrentPlatform;
-			case OS_X -> Configuration::osX;
-			case UNIX -> Configuration::unix;
-			case WINDOWS -> Configuration::windows;
-			default -> throw new RuntimeException("Should not be thrown");
-		};
-
-		return Optional.of(jimfsConfigurationSupplier);
+	private static Optional<Configuration> getFromAnnotation(AnnotatedElementContext elementContext) {
+		return elementContext.findAnnotation(JimfsTempDir.class)
+			.map(JimfsTempDir::value)
+			.filter(configuration -> configuration != Configuration.DEFAULT);
 	}
 
-	private static JimfsTempDir.Configuration transform(String value) {
-		return JimfsTempDir.Configuration.valueOf(value.trim().toUpperCase(Locale.ROOT));
+	private static Optional<Configuration> getFromConfigurationParameter(ExtensionContext extensionContext) {
+		return extensionContext
+			.getConfigurationParameter(JimfsTempDir.DEFAULT_CONFIGURATION_PARAMETER_NAME,
+					JimfsTempDirFactory::transform)
+			.filter(configuration -> configuration != Configuration.DEFAULT);
 	}
 
-	/** {@inheritDoc} */
+	private static Configuration transform(String value) {
+		return Configuration.valueOf(value.strip().toUpperCase(Locale.ROOT));
+	}
+
 	@Override
 	public void close() throws IOException {
 		if (fileSystem != null) {
