@@ -32,32 +32,28 @@ import java.util.Optional;
 /**
  * {@link TempDirFactory} implementation that creates an in-memory temporary directory via
  * {@link Jimfs}, using {@value DEFAULT_PREFIX} as the name prefix.
- *
  * <p>
  * When used as a standalone factory within the {@link org.junit.jupiter.api.io.TempDir}
  * annotation, or set as value for the
  * {@value org.junit.jupiter.api.io.TempDir#DEFAULT_FACTORY_PROPERTY_NAME} configuration
  * parameter, the factory configures the underlying file system appropriately for the
  * {@link com.google.common.jimfs.Configuration#forCurrentPlatform() current platform}.
- *
  * <p>
- * For better control over the underlying in-memory file system, consider using one of the
+ * For better control over the underlying in-memory file system, consider using any of the
  * following options:
  *
  * <ul>
- * <li>The {@link JimfsTempDir} composed annotation and its {@link JimfsTempDir#value()
+ * <li>The {@link JimfsTempDir} composed annotation with its {@link JimfsTempDir#value()
  * value} attribute.
  * <li>The {@value JimfsTempDir#DEFAULT_CONFIGURATION_PARAMETER_NAME} configuration
  * parameter.
  * </ul>
  *
- * <p>
- * Please note that only annotated fields or parameters of type {@link Path} are supported
- * as Jimfs is a non-default file system, and {@link java.io.File} instances are
- * associated with the default file system only.
+ * Please note that only annotated fields or parameters of type {@link Path} are
+ * supported, since Jimfs is a non-default file system and {@link java.io.File} instances
+ * work with the default file system only.
  *
  * @see Jimfs#newFileSystem(com.google.common.jimfs.Configuration)
- * @see com.google.common.jimfs.Configuration#forCurrentPlatform()
  */
 @SuppressWarnings("exports")
 public final class JimfsTempDirFactory implements TempDirFactory {
