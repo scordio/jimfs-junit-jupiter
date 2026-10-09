@@ -115,11 +115,11 @@
               <compilerArg>-parameters</compilerArg>
               <compilerArg>-Xlint:all,-requires-automatic</compilerArg>
             </compilerArgs>
+            <annotationProcessorPathsUseDepMgmt>true</annotationProcessorPathsUseDepMgmt>
             <annotationProcessorPaths>
               <path>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-configuration-processor</artifactId>
-                <version>${junit-framework.version}</version>
               </path>
             </annotationProcessorPaths>
             <failOnWarning>true</failOnWarning>
