@@ -21,6 +21,7 @@
 module io.github.scordio.jimfs.junit.jupiter {
 
 	requires static transitive org.jspecify;
+	requires static transitive org.junit.platform.configuration.api;
 
 	requires transitive com.google.common.jimfs;
 
