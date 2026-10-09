@@ -124,11 +124,11 @@
                 -XepOpt:NullAway:OnlyNullMarked
               </compilerArg>
             </compilerArgs>
+            <annotationProcessorPathsUseDepMgmt>true</annotationProcessorPathsUseDepMgmt>
             <annotationProcessorPaths>
               <path>
                 <groupId>org.junit.platform</groupId>
                 <artifactId>junit-platform-configuration-processor</artifactId>
-                <version>${junit-framework.version}</version>
               </path>
               <path>
                 <groupId>com.google.errorprone</groupId>
