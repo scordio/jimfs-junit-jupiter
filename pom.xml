@@ -107,7 +107,7 @@
           <configuration>
             <compilerArgs>
               <compilerArg>-parameters</compilerArg>
-              <compilerArg>-Xlint:all</compilerArg>
+              <compilerArg>-Xlint:all,-requires-automatic</compilerArg>
             </compilerArgs>
             <failOnWarning>true</failOnWarning>
           </configuration>

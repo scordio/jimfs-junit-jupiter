@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
  * JUnit Jupiter {@link org.junit.jupiter.api.io.TempDir} extension based on
  * {@link com.google.common.jimfs.Jimfs}.
  */
-@SuppressWarnings({"requires-automatic", "requires-transitive-automatic"})
+@SuppressWarnings("requires-transitive-automatic")
 module io.github.scordio.jimfs.junit.jupiter {
 
 	requires static transitive org.jspecify;
