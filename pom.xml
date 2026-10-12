@@ -107,29 +107,8 @@
           <configuration>
             <compilerArgs>
               <compilerArg>-parameters</compilerArg>
-              <compilerArg>-Xlint:all,-options</compilerArg>
-              <!-- https://errorprone.info/docs/installation#maven -->
-              <compilerArg>-XDcompilePolicy=simple</compilerArg>
-              <compilerArg>--should-stop=ifError=FLOW</compilerArg>
-              <compilerArg>
-                -Xplugin:ErrorProne
-                -Xep:SameNameButDifferent:OFF
-                -Xep:RequireExplicitNullMarking:WARN
-                -XepOpt:NullAway:OnlyNullMarked
-              </compilerArg>
+              <compilerArg>-Xlint:all</compilerArg>
             </compilerArgs>
-            <annotationProcessorPaths>
-              <path>
-                <groupId>com.google.errorprone</groupId>
-                <artifactId>error_prone_core</artifactId>
-                <version>2.50.0</version>
-              </path>
-              <path>
-                <groupId>com.uber.nullaway</groupId>
-                <artifactId>nullaway</artifactId>
-                <version>0.14.2</version>
-              </path>
-            </annotationProcessorPaths>
             <failOnWarning>true</failOnWarning>
           </configuration>
         </plugin>
@@ -175,6 +154,19 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>am.ik.maven</groupId>
+        <artifactId>nullability-maven-plugin</artifactId>
+        <version>0.5.2</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <goals>
+              <goal>configure</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
