@@ -23,6 +23,7 @@ theme:
   features:
     - content.action.edit
     - content.code.copy
+    - search.highlight
     - toc.integrate
   icon:
     edit: material/pencil
