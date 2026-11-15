@@ -60,10 +60,6 @@ plugins:
   - social:
       cards_layout: default/variant
 
-# Hooks
-hooks:
-  - hooks/javadoc.py
-
 # Additional configuration
 extra:
   social:
@@ -105,5 +101,5 @@ nav:
   - usage.md
   - configuration-parameters.md
   - limitations.md
-  - javadoc.md
-  - release-notes.md
+  - Javadoc: https://stefano.codes/jimfs-junit-jupiter/api
+  - Release Notes: https://github.com/scordio/jimfs-junit-jupiter/releases
